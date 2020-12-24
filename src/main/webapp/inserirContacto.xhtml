@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Página Principal</title>
         <!-- Favicon -->
@@ -89,49 +90,18 @@
         </div>
     </header>
 
-    <div class="academy-courses-area section-padding-100-0">
-     <div class="container">
-        
+
     
-    <form class="row g-3">
-   <div class="col-12">
-    <label for="inputAddress" class="form-label">Nome</label>
-    <input type="text" class="form-control" id="nome" value="#{contactoCDIBean.contacto.nome}"/>
-  </div>  
-        
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">Telefone</label>
-    <input type="text" class="form-control" id="telefone" value="#{contactoCDIBean.contacto.telefone}"/>
-  </div>      
-        
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" value="#{contactoCDIBean.contacto.email}"/>
-  </div>
- 
-  
-        
-  <div class="col-12">
-    <label for="endereco" class="form-label">Endereço</label>
-    <input type="text" class="form-control" id="endereco" value="#{contactoCDIBean.contacto.endereco}"/>
-  </div>
-        
-  <div class="col-12">
-    <label for="mensagem1" class="form-label">Mensagem</label>
-    <input type="text" class="form-control" id="mensagem" value="#{contactoCDIBean.contacto.mensagem}"/>
-  </div>      
-  
-  
-  
-  
-  <div class="col-12">
-      <h:commandButton value="Guardar" action="#{contactoCDIBean.guardar}" type="submit" class="btn btn-primary"/>
-  </div>
-</form>
-    
-  </div>
-      </div>
-        
+  <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Sigla"/>
+                <h:inputText value="#{contactoCDIBean.contacto.nome}"/>
+                <h:outputLabel value="Nome"/>
+                <h:inputText value="#{contactoCDIBean.contacto.endereco}"/>
+                
+            </h:panelGrid>
+      <h:commandButton value="Guardar" action="#{contactoCDIBean.guardar}"/>
+        </h:form>
     
     
     
