@@ -6,150 +6,155 @@
 package fc.dao;
 
 import fc.util.ConexaoDB;
-import java.sql.*;
+import fc.modelo.Contacto;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import fc.modelo.Contacto;
-
 
 /**
  *
- * @author DGTALE
+ * @author informatica
  */
 public class ContactoDAO {
 
-    /*
+    private static final String INSERIR = "INSERT INTO contacto(nome, telefone, email, endereco, mensagem)VALUES(?, ?, ?, ?, ?)";
+    private static final String ACTUALIZAR = "UPDATE contacto SET nome = ?, telefone = ?, email = ?, endereco = ?, mensagem = ? WHERE pk_contacto = ?";
+    private static final String ELIMINAR = "DELETE FROM contacto WHERE pk_contacto = ?";
+    private static final String BUSCAR_POR_CODIGO = "SELECT id_contacto, nome_contacto, sobrenom_contacto, data_nascimento_contacto, sexo_contacto, email_contacto, telefone_contacto, rua_contacto, casa_contacto, bairro_contacto,  distritito_contacto,  nome_municipio FROM contacto f INNER JOIN municipio m ON f.id_municipio = f.id_municipio WHERE id_contacto = ?";
+    private static final String BUSCAR_POR_NOME = "SELECT id_contacto, nome_contacto, sobrenom_contacto, data_nascimento_contacto, sexo_contacto, email_contacto, telefone_contacto, rua_contacto, casa_contacto, bairro_contacto,  distritito_contacto,  nome_municipio FROM contacto f INNER JOIN municipio m ON f.id_municipio = f.id_municipio WHERE nome_contacto LIKE ? OR sobrenom_contacto LIKE ?";
+    private static final String LISTAR_TUDO = "SELECT pk_contacto, nome, telefone, email, endereco, mensagem FROM  contacto";;
    
     
+    ConexaoDB conexaoDB = new ConexaoDB();
 
-
-    
-     */
-    String INSERT = "INSERT INTO contacto(nome, telefone, email, endereco, mensagem) VALUES(?, ?, ?, ?, ?)";
-    String UPDATE = "UPDATE contacto SET nome = ?, telefone = ?, email = ?, endereco = ?, mensagem = ? WHERE pk_contacto = ?";
-    String DELETE = "DELETE FROM contacto WHERE pk_contacto = ?";
-    String SELECT_ALL = "SELECT pk_contacto, nome, telefone, email, endereco, mensagem FROM  contacto";
-    String SELECT_BY_NOME = "SELECT pk_contacto, nome, telefone, email, endereco, mensagem FROM  contacto f WHERE f.nome LIKE ? ";
-    String SELECT_BY_NOME_SOBRENOME = "SELECT id_contacto, nome, sobrenome, data_nascimento, rua, casa, bairro, sexo, id_municipio FROM  contacto f WHERE f.nome = ? AND f.sobrenome = ?";
-    String SELECT_BY_DATA_NASCIMENTO = "SELECT id_contacto, nome, sobrenome, data_nascimento, rua, casa, bairro, sexo, id_municipio FROM  contacto f WHERE f.data_nascimento BETWEEN ? AND ?";
-
-    public void save(Contacto f) {
+    public void insert(Contacto f) {
         PreparedStatement ps = null;
         Connection conn = null;
-    
+
         try {
-            conn = ConexaoDB.ligarBD();
-            ps = conn.prepareStatement(INSERT);
+            conn = conexaoDB.ligarBB();
+            ps = conn.prepareStatement(INSERIR);
             ps.setString(1, f.getNome());
             ps.setString(2, f.getTelefone());
             ps.setString(3, f.getEmail());
             ps.setString(4, f.getEndereco());
             ps.setString(5, f.getMensagem());
             ps.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+        } finally {
 
-            System.err.println("Erro ao inserir dados:"
-                    + " ContactoDAO:save" + e.getLocalizedMessage());
+            ConexaoDB.fecharConexao(conn, ps);
         }
 
     }
-    
-//     public void edit(Contacto f) {
-//        PreparedStatement ps = null;
-//        Connection conn = null;
-//    
-//        try {
-//            conn = ConexaoDB.ligarBD();
-//            ps = conn.prepareStatement(UPDATE);
-//            ps.setString(1, f.getNome());
-//            ps.setString(2, f.getSobrenome());
-//            ps.setDate(3, new java.sql.Date(f.getDataNascimento().getTime()));
-//            ps.setString(4, f.getRua());
-//            ps.setString(5, f.getCasa());
-//            ps.setString(6, f.getBairro());
-//            ps.setString(7, f.getSexo().getAbreviatua());
-//            ps.setInt(8, f.getMunicipio().getIdMunicipio());
-//            ps.setInt(9, f.getId());
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//
-//            System.err.println("Erro ao actualizar dados:"
-//                    + " DepartamentoDAO:save" + e.getLocalizedMessage());
-//        }
-//
-//    }
 
-//      public void delete(Contacto f) {
-//        PreparedStatement ps = null;
-//        Connection conn = null;
-//    
-//        try {
-//            conn = ConexaoDB.ligarBD();
-//            ps = conn.prepareStatement(DELETE);
-//            ps.setInt(1, f.getId());
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//
-//            System.err.println("Erro ao eliminar dados:"
-//                    + " DepartamentoDAO:save" + e.getLocalizedMessage());
-//        }
-//
-//    }
-//     
-    public List<Contacto> listaTodosContactos() {
-        List<Contacto> lista = new ArrayList<>();
+    public void update(Contacto f) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+
+        try {
+            conn = conexaoDB.ligarBB();
+            ps = conn.prepareStatement(ACTUALIZAR);
+            ps.setString(1, f.getNome());
+            ps.setString(2, f.getTelefone());
+            ps.setString(3, f.getEmail());
+            ps.setString(2, f.getEndereco());
+            ps.setString(2, f.getMensagem());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+        } finally {
+
+            ConexaoDB.fecharConexao(conn, ps);
+        }
+
+    }
+
+    public void delete(Contacto f) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+
+        try {
+            conn = conexaoDB.ligarBB();
+            ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, f.getPk_contacto());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+        } finally {
+
+            ConexaoDB.fecharConexao(conn, ps);
+        }
+
+    }
+
+    public List<Contacto> findAll() {
         PreparedStatement ps = null;
         Connection conn = null;
         ResultSet rs = null;
+        List<Contacto> contactos = new ArrayList<>();
         try {
-            conn = ConexaoDB.ligarBD();
-            ps = conn.prepareStatement(SELECT_ALL);
+            conn = conexaoDB.ligarBB();
+            ps = conn.prepareStatement(LISTAR_TUDO);
             rs = ps.executeQuery();
             while (rs.next()) {
-                /*nome, sobrenome, data_nascimento, 
-                rua, casa, bairro, sexo, id_municipio*/
-                Contacto f = new Contacto();
-                f.setPk_contacto(rs.getInt(1));
-                f.setNome(rs.getString("nome"));
-                f.setTelefone(rs.getString("sobrenome"));
-                f.setEmail(rs.getString(4));
-                f.setEndereco(rs.getString(5));
-                f.setMensagem(rs.getString(6));
-                lista.add(f);
+                Contacto contacto = new Contacto();
+                popularComDados(contacto, rs);
+                contactos.add(contacto);
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro ao ler dados:"
-                    + "ContactoDAO:"
-                    + "listaTodosContactos" + ex.getLocalizedMessage());
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            ConexaoDB.fecharConexao(conn);
         }
-
-        return lista;
+        return contactos;
     }
 
-//    public List<Departamento> listaContactosByNome(String nome) {
-//        List<Departamento> lista = new ArrayList<>();
-//        PreparedStatement ps = null;
-//        Connection conn = null;
-//        ResultSet rs = null;
-//        try {
-//            conn = ConexaoDB.ligarBD();
-//            ps = conn.prepareStatement(SELECT_BY_NOME);
-//            ps.setString(1, nome);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                Departamento d = new Departamento();
-//                d.setSigla(rs.getString(1));
-//                d.setNome(rs.getString(2));
-//                lista.add(d);
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.err.println("Erro ao ler dados:"
-//                    + "ContactoDAO:"
-//                    + "listaContactosByNome" + ex.getLocalizedMessage());
-//        }
-//
-//        return lista;
-//    }
+    public List<Contacto> findByNomeSobrenome(String valor) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        List<Contacto> contactos = new ArrayList<>();
+        try {
+            conn = conexaoDB.ligarBB();
+
+            ps = conn.prepareStatement(BUSCAR_POR_NOME);
+            ps.setString(1, "%" + valor + "%");
+            ps.setString(2, "%" + valor + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Contacto contacto = new Contacto();
+                popularComDados(contacto, rs);
+                contactos.add(contacto);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            ConexaoDB.fecharConexao(conn);
+        }
+        return contactos;
+    }
+
+    private void popularComDados(Contacto contacto, ResultSet rs) {
+        try {
+            contacto.setPk_contacto(rs.getInt("pk_contacto"));
+            contacto.setNome(rs.getString("nome"));
+            contacto.setTelefone(rs.getString("telefone"));
+            contacto.setEmail(rs.getString("email"));
+            contacto.setEndereco(rs.getString("endereco"));
+            contacto.setMensagem(rs.getString("mensagem"));
+            
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao carregar dados: " + ex.getLocalizedMessage());
+        }
+    }
+
 }

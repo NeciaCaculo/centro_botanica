@@ -11,11 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
    
-    <link rel="icon" href="img/core-img/indice.jpg"/>
+    <link rel="icon" src="../img/core-img/indice.jpg"/>
+   
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="style.css"/>
-
+    <link rel="stylesheet" href="../style.css"/>
+    
     </h:head>
     <h:body>
         
@@ -30,7 +31,7 @@
                     <div class="col-12 h-100">
                         <div class="header-content h-100 d-flex align-items-center justify-content-between">
                             <div class="academy-logo">
-                                <a href="index.html"><img src="img/core-img/indice.png" alt=""/></a>
+                                <a href="../index.html"><img src="../img/core-img/indice.png" alt=""/></a>
                                 
                             </div>
                            
@@ -63,7 +64,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="../index.jsf">Home</a></li>
                                     <li><a href="#">Sobre Nós</a>
                                         <ul class="dropdown">
                                             <li><a href="index.html">Missão</a></li>
@@ -90,19 +91,33 @@
         </div>
     </header>
 
+    <div class="academy-courses-area section-padding-100-0">
 
-    
-  <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Sigla"/>
-                <h:inputText value="#{contactoCDIBean.contacto.nome}"/>
+    <div class="container">
+       <h:form>
+           
+            <h:panelGrid columns="1">  
+                
                 <h:outputLabel value="Nome"/>
-                <h:inputText value="#{contactoCDIBean.contacto.endereco}"/>
+                <h:inputText value="#{contactoMB.contacto.nome}" size="40"/>
+               
+                <h:outputLabel value="Telefone"/>
+                <h:inputText value="#{contactoMB.contacto.telefone}" size="40"/>
+                <h:outputLabel value="Email"/>
+                <h:inputText value="#{contactoMB.contacto.email}" size="40"/>
+                <h:outputLabel value="Endereço"/>
+                <h:inputText value="#{contactoMB.contacto.endereco}" size="40"/>
+                <h:outputLabel value="Mensagem"/>
+                <h:inputTextarea value="#{contactoMB.contacto.mensagem}"/>
                 
             </h:panelGrid>
-      <h:commandButton value="Guardar" action="#{contactoCDIBean.guardar}"/>
+           <h:commandButton value="Enviar" class="btn btn-primary" action="#{contactoMB.insert}"/>
         </h:form>
-    
+        
+        
+        
+   </div> 
+  </div>       
     
     
     
@@ -116,7 +131,7 @@
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="footer-widget mb-100">
                             <div class="widget-title">
-                                <a href="#"><img src="img/core-img/indice.png" alt=""/></a>
+                                <a href="#"><img src="../img/core-img/indice.png" alt=""/></a>
                             </div>
                             <p>O Centro de Estudos e Investigação Científica de Botânica (Centro de Botânica), É uma Instituição de Desenvolvimento e Estudos Avançados pertencente a Universidade Agostinho Neto. Localizado na Avenida Revolução de Outubro no edifí­cio do CNIC.</p>
                             <div class="footer-social-info">
@@ -188,15 +203,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="../js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins js -->
-    <script src="js/plugins/plugins.js"></script>
+    <script src="../js/plugins/plugins.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="../js/active.js"></script>
     
     </h:body>
 </html>
