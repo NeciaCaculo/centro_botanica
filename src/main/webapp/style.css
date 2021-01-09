@@ -842,8 +842,8 @@ img {
   .main-footer-area .footer-widget .gallery-list a {
     position: relative;
     z-index: 1;
-    @flex (0 0 30%);
-    max-width: 30%;
+/*    @flex (0 0 30%);
+    max-width: 30%;*/
     margin-bottom: 15px;
     cursor: zoom-in; }
     .main-footer-area .footer-widget .gallery-list a::after {
@@ -1054,8 +1054,8 @@ img {
     font-size: 18px;
     margin-bottom: 30px; }
   .latest-blog-posts .latest-blog-post-thumb {
-    @flex (0 0 66px);
-    max-width: 66px;
+/*    @flex (0 0 66px);
+    max-width: 66px;*/
     width: 66px;
     margin-right: 15px; }
   .latest-blog-posts .latest-blog-post-content .post-title h6 {
