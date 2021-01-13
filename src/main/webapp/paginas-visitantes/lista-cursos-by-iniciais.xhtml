@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
    
-    <link rel="icon" src="../img/core-img/tea2.jpg"/>
+    <link rel="icon" src="../img/core-img/indice.jpg"/>
    
 
     <!-- Core Stylesheet -->
@@ -31,9 +31,10 @@
                     <div class="col-12 h-100">
                         <div class="header-content h-100 d-flex align-items-center justify-content-between">
                             <div class="academy-logo">
-                                <a href="../index.html"><img src="../img/core-img/tea2.png" alt=""/></a>
+                                <a href="../index.html"><img src="../img/core-img/indice.png" alt=""/></a>
                                 
                             </div>
+                            
                             <div class="login-content">                               
                                 
                                &nbsp; <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
@@ -104,29 +105,38 @@
     <div class="academy-courses-area section-padding-100-0">
 
     <div class="container">
-        
-        
-       <h:form style="width: 80%; margin-left: 300px;">
-           <div class="contact-form-area wow fadeInUp" data-wow-delay="500ms">
-           <h2>Fale Connosco</h2>
-            <h:panelGrid columns="1">  
-                
-                <h:outputLabel value="Nome"/>
-                <h:inputText class="form-control"  value="#{contactoMB.contacto.nome}" size="40"/>
-               
-                <h:outputLabel value="Telefone"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.telefone}" size="40"/>
-                <h:outputLabel value="Email"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.email}" size="40"/>
-                <h:outputLabel value="Endereço"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.endereco}" size="40"/>
-                <h:outputLabel value="Mensagem"/>
-                <h:inputTextarea class="form-control"  value="#{contactoMB.contacto.mensagem}"/>
-                
+      <h:form id="frmBusca">
+            <h:panelGrid columns="1">
+            <h:outputLabel value="Escreva parte do nome do Curso"/>
+            <h:inputText value="#{cursoMB.letrasNomeCurso}"/>
+            <h:commandButton value="Pesquisar ..."/>
             </h:panelGrid>
-           <h:commandButton value="Enviar" class="btn btn-primary" action="#{contactoMB.insert}"/>
-           </div>
-       </h:form>
+          <br/>
+        </h:form>
+        
+        <h:form id="dtBuscaCursos">
+            <h:dataTable value="#{cursoMB.cursosComLetras}" var="m" border="1">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="N/O"/>
+                    </f:facet>
+                    <h:outputText value="#{m.idcurso}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Curso"/>
+                    </f:facet>
+                    <h:outputText value="#{m.nome_curso}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Tipo"/>
+                    </f:facet>
+                    <h:outputText value="#{m.tipo_Curso.designacao}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <br/>
         
         
         
@@ -145,7 +155,7 @@
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="footer-widget mb-100">
                             <div class="widget-title">
-                                <a href="#"><img src="../img/core-img/CentroBotanica-02.png" alt=""/></a>
+                                <a href="#"><img src="../img/core-img/indice.png" alt=""/></a>
                             </div>
                             <p>O Centro de Estudos e Investigação Científica de Botânica (Centro de Botânica), É uma Instituição de Desenvolvimento e Estudos Avançados pertencente a Universidade Agostinho Neto. Localizado na Avenida Revolução de Outubro no edifí­cio do CNIC.</p>
                             <div class="footer-social-info">

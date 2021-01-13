@@ -20,12 +20,41 @@ public class CursoMB {
     Curso curso = new Curso();
     CursoDAO cursodao = new CursoDAO();
     List<Curso> listaCurso = new ArrayList<>();
+    
+    List<Curso> cursosComLetras;
+    String letrasNomeCurso;
+
+//    public List<Curso> getCursosComLetras() {
+//        return cursosComLetras;
+//        
+//    }
+//    
+    
+    public List<Curso> getCursosComLetras(){
+    cursosComLetras = new ArrayList<>();
+    cursosComLetras = cursodao.findByName(letrasNomeCurso);
+    return cursosComLetras;
+    
+    
+    }
+
+    public void setCursosComLetras(List<Curso> cursosComLetras) {
+        this.cursosComLetras = cursosComLetras;
+    }
+
+    String tipo_curso;
+    
+
 
     @PostConstruct
     public void inicializar() {
         listaCurso = cursodao.findAll();
     }
 
+    
+    
+    
+    
     public Curso getCurso() {
         return curso;
     }
@@ -42,6 +71,25 @@ public class CursoMB {
     public void setListaCurso(List<Curso> listaCurso) {
         this.listaCurso = listaCurso;
     }
+
+    public String getTipo_curso() {
+        return tipo_curso;
+    }
+
+    public void setTipo_curso(String tipo_curso) {
+        this.tipo_curso = tipo_curso;
+    }
+
+    public String getLetrasNomeCurso() {
+        return letrasNomeCurso;
+    }
+
+    public void setLetrasNomeCurso(String letrasNomeCurso) {
+        this.letrasNomeCurso = letrasNomeCurso;
+    }
+
+    
+    
 
     public String insert() {
         cursodao.insert(curso);

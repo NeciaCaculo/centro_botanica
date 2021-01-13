@@ -14,7 +14,7 @@ import java.util.Date;
 public class Curso {
 
     private int idcurso;
-    private String nome_curso, descricao;
+    private String nome_curso, descricao, modalidade_pagto, documentos, topicos;
     private Date data_inicio, data_fim;
     private Tipo_Curso tipo_Curso;
     private Double preco=0.0;
@@ -24,14 +24,16 @@ public class Curso {
         
     }
 
-    public Curso(int idcurso, String nome_curso, String descricao, Date data_inicio, Date data_fim, Tipo_Curso tipo_Curso, Double preco) {
+    public Curso(int idcurso, String nome_curso, String descricao, String modalidade_pagto, String documentos, String topicos, Date data_inicio, Date data_fim, Tipo_Curso tipo_Curso) {
         this.idcurso = idcurso;
         this.nome_curso = nome_curso;
         this.descricao = descricao;
+        this.modalidade_pagto = modalidade_pagto;
+        this.documentos = documentos;
+        this.topicos = topicos;
         this.data_inicio = data_inicio;
         this.data_fim = data_fim;
         this.tipo_Curso = tipo_Curso;
-        this.preco = preco;
     }
 
     public int getIdcurso() {
@@ -56,6 +58,30 @@ public class Curso {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getModalidade_pagto() {
+        return modalidade_pagto;
+    }
+
+    public void setModalidade_pagto(String modalidade_pagto) {
+        this.modalidade_pagto = modalidade_pagto;
+    }
+
+    public String getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(String documentos) {
+        this.documentos = documentos;
+    }
+
+    public String getTopicos() {
+        return topicos;
+    }
+
+    public void setTopicos(String topicos) {
+        this.topicos = topicos;
     }
 
     public Date getData_inicio() {
@@ -89,6 +115,10 @@ public class Curso {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+
+    
+
+    
 
     
 }

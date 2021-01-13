@@ -6,7 +6,7 @@
 package fc.dao;
 
 
-import fc.modelo.TipoPlanta;
+import fc.modelo.GrupoPlanta;
 import fc.util.ConexaoDB;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,30 +20,30 @@ import java.util.List;
  *
  * @author Nécia Caculo
  */
-public class Tipo_PlantaDAO {
-    private String SELECT_ALL = "SELECT p.pktipo_planta, p.designacao FROM tipo_planta p";
-    private String INSERT = "INSERT INTO tipo_planta (`designacao`) VALUES(?)";
-    private String EDITE= "UPDATE tipo_planta SET designacao = ? WHERE pktipo_planta = ?";
-    private String DELETE = "DELETE FROM tipo_planta WHERE pktipo_planta = ?;";
-    private String LIST_BY_NAME="SELECT p.pktipo_planta, p.designacao FROM tipo_planta WHERE p.designacao LIKE ?";
-    private String INSERTE = "INSERT INTO `tipo_planta` (`designacao`) VALUES (?);";
+public class Grupo_PlantaDAO {
+    private String SELECT_ALL = "SELECT p.pk_grupo_planta, p.designacao FROM grupo_planta p";
+    private String INSERT = "INSERT INTO grupo_planta (`designacao`) VALUES(?)";
+    private String EDITE= "UPDATE grupo_planta SET designacao = ? WHERE pk_grupo_planta = ?";
+    private String DELETE = "DELETE FROM grupo_planta WHERE pk_grupo_planta = ?;";
+    private String LIST_BY_NAME="SELECT p.pk_grupo_planta, p.designacao FROM grupo_planta WHERE p.designacao LIKE ?";
+    private String INSERTE = "INSERT INTO `grupo_planta` (`designacao`) VALUES (?);";
     ConexaoDB conexao = new ConexaoDB();
     
-    public void update(TipoPlanta pac){
+    public void update(GrupoPlanta pac){
         
         PreparedStatement ps;
         try {
             Connection con = conexao.ligarBB();
             ps = con.prepareStatement(EDITE);
             ps.setString(1, pac.getDesignacao());
-            ps.setInt(2, pac.getPktipo_planta());
+            ps.setInt(2, pac.getPkgrupo_planta());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao Actualizar o Registro: "+e.getLocalizedMessage());
         }
     }
     
-    public void insert(TipoPlanta pac){
+    public void insert(GrupoPlanta pac){
         
         PreparedStatement ps;
         try {
@@ -56,21 +56,21 @@ public class Tipo_PlantaDAO {
         }
     }
     
-    public void delete(TipoPlanta pac){
+    public void delete(GrupoPlanta pac){
         
         PreparedStatement ps;
         try {
             Connection con = conexao.ligarBB();
             ps = con.prepareStatement(DELETE);
-            ps.setInt(1, pac.getPktipo_planta());
+            ps.setInt(1, pac.getPkgrupo_planta());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao Eliminar o Registro: "+e.getLocalizedMessage());
         }
     }
     
-   public List<TipoPlanta> findAll(){
-       List<TipoPlanta> lista = new ArrayList<>();
+   public List<GrupoPlanta> findAll(){
+       List<GrupoPlanta> lista = new ArrayList<>();
        Connection con;
        PreparedStatement ps;
        ResultSet rs;
@@ -79,8 +79,8 @@ public class Tipo_PlantaDAO {
           ps = con.prepareStatement(SELECT_ALL);
           rs = ps.executeQuery();
            while (rs.next()) {               
-               TipoPlanta pac = new TipoPlanta();
-               pac.setPktipo_planta(rs.getInt("p.pktipo_planta"));
+               GrupoPlanta pac = new GrupoPlanta();
+               pac.setPkgrupo_planta(rs.getInt("p.pk_grupo_planta"));
                pac.setDesignacao(rs.getString("p.designacao"));           
                lista.add(pac);
            }
@@ -91,8 +91,8 @@ public class Tipo_PlantaDAO {
        return lista;
    } 
     
-   public List<TipoPlanta> findByName(String nome){
-       List<TipoPlanta> lista = new ArrayList<>();
+   public List<GrupoPlanta> findByName(String nome){
+       List<GrupoPlanta> lista = new ArrayList<>();
        Connection con;
        PreparedStatement ps;
        ResultSet rs;
@@ -102,8 +102,8 @@ public class Tipo_PlantaDAO {
           ps.setString(1,"%" + nome + "%");
           rs = ps.executeQuery();
            while (rs.next()) {               
-               TipoPlanta pac = new TipoPlanta();
-               pac.setPktipo_planta(rs.getInt("p.pktipo_planta"));
+               GrupoPlanta pac = new GrupoPlanta();
+               pac.setPkgrupo_planta(rs.getInt("p.pk_grupo_planta"));
                pac.setDesignacao(rs.getString("p.designacao"));               
                lista.add(pac);
   

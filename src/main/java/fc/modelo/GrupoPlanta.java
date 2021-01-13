@@ -10,26 +10,26 @@ package fc.modelo;
  *
  * @author Nécia Caculo
  */
-public class TipoPlanta {
+public class GrupoPlanta {
 
-    private int pktipo_planta;
+    private int pk_grupo_planta;
     private String designacao;
     
-    public TipoPlanta() {
+    public GrupoPlanta() {
     }
 
-    public TipoPlanta(int pktipo_planta, String designacao) {
-        this.pktipo_planta = pktipo_planta;
+    public GrupoPlanta(int pk_grupo_planta, String designacao) {
+        this.pk_grupo_planta = pk_grupo_planta;
         this.designacao = designacao;
         
     }
 
-    public int getPktipo_planta() {
-        return pktipo_planta;
+    public int getPkgrupo_planta() {
+        return pk_grupo_planta;
     }
 
-    public void setPktipo_planta(int pktipo_planta) {
-        this.pktipo_planta = pktipo_planta;
+    public void setPkgrupo_planta(int pk_grupo_planta) {
+        this.pk_grupo_planta = pk_grupo_planta;
     }
 
     public String getDesignacao() {

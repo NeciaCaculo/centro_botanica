@@ -20,13 +20,13 @@ import java.util.List;
  *
  * @author Necia
  */
-public class CursoDAO {
-    private String SELECT_ALL = "SELECT c.idcurso, c.nome_curso, c.descricao, c.modalidade_pagto, c.documentos, c.topicos, c.data_inicio, c.data_fim, t.designacao, c.preco  FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso";
-    private String INSERT = "INSERT INTO curso (`nome_curso`,`descricao`, `modalidade_pagto`, `documentos`, `topicos`, `data_inicio`,`data_fim`,`pk_tipo_curso`,`preco`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private String EDITE= "UPDATE curso SET nome_curso = ?, descricao = ?, modalidade_pagto= ?, documentos= ?, topicos= ?, data_inicio = ?, data_fim = ?, fk_tipo_curso = ?, preco = ? WHERE idcurso = ?";
+public class PlantaDAO {
+    private String SELECT_ALL = "SELECT c.idcurso, c.nome_curso, c.descricao, c.data_inicio, c.data_fim, t.designacao, c.preco  FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso";
+    private String INSERT = "INSERT INTO curso (`nome_curso`,`descricao`,`data_inicio`,`data_fim`,`pk_tipo_curso`,`preco`) VALUES(?, ?, ?, ?, ?, ?)";
+    private String EDITE= "UPDATE curso SET nome_curso = ?, descricao = ?, data_inicio = ?, data_fim = ?, fk_tipo_curso = ?, preco = ? WHERE idcurso = ?";
     private String DELETE = "DELETE FROM curso WHERE idcurso = ?;";
-    private String LIST_BY_NAME="SELECT c.idcurso, c.descricao, c.nome_curso, c.modalidade_pagto, c.documentos, c.topicos, c.data_inicio, c.data_fim, t.designacao, c.preco FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso WHERE c.nome_curso LIKE ?";
-    private String INSERTE = "INSERT INTO `curso` (`nome_curso`,`descricao`,`modalidade_pagto`, `documentos`, `topicos`, `data_inicio`,`data_fim`,`fk_tipo_curso`,`preco`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private String LIST_BY_NAME="SELECT c.idcurso, c.descricao, c.nome_curso, c.data_inicio, c.data_fim, t.designacao, c.preco FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso WHERE c.nome_curso LIKE ?";
+    private String INSERTE = "INSERT INTO `curso` (`nome_curso`,`descricao`,`data_inicio`,`data_fim`,`fk_tipo_curso`,`preco`) VALUES ( ?, ?, ?, ?, ?, ?);";
     ConexaoDB conexao = new ConexaoDB();
     
     public void update(Curso pac){
@@ -38,13 +38,10 @@ public class CursoDAO {
             
             ps.setString(1, pac.getNome_curso());
             ps.setString(2, pac.getDescricao());
-            ps.setString(3, pac.getModalidade_pagto());
-            ps.setString(4, pac.getDocumentos());
-            ps.setString(5, pac.getTopicos());
-            ps.setDate(6, (Date) pac.getData_inicio());
-            ps.setDate(7, (Date) pac.getData_fim());
-            ps.setInt(8, pac.getTipo_Curso().getPktipo_curso());
-            ps.setDouble(9, pac.getPreco());
+            ps.setDate(3, (Date) pac.getData_inicio());
+            ps.setDate(4, (Date) pac.getData_fim());
+            ps.setInt(5, pac.getTipo_Curso().getPktipo_curso());
+            ps.setDouble(6, pac.getPreco());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao Actualizar o Registro: "+e.getLocalizedMessage());
@@ -59,13 +56,10 @@ public class CursoDAO {
             ps = con.prepareStatement(INSERTE);
             ps.setString(1, pac.getNome_curso());
             ps.setString(2, pac.getDescricao());
-            ps.setString(3, pac.getModalidade_pagto());
-            ps.setString(4, pac.getDocumentos());
-            ps.setString(5, pac.getTopicos());
-            ps.setDate(6, (Date) pac.getData_inicio());
-            ps.setDate(7, (Date) pac.getData_fim());
-            ps.setInt(8, pac.getTipo_Curso().getPktipo_curso());
-            ps.setDouble(9, pac.getPreco());
+            ps.setDate(3, (Date) pac.getData_inicio());
+            ps.setDate(4, (Date) pac.getData_fim());
+            ps.setInt(5, pac.getTipo_Curso().getPktipo_curso());
+            ps.setDouble(6, pac.getPreco());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao Inserir os dados no Banco de Dados: "+e.getLocalizedMessage());
@@ -99,9 +93,6 @@ public class CursoDAO {
                pac.setIdcurso(rs.getInt("c.idcurso"));
                pac.setNome_curso(rs.getString("c.nome_curso"));
                pac.setDescricao(rs.getString("c.descricao"));
-               pac.setModalidade_pagto(rs.getString("c.modalidade_pagto"));
-               pac.setDocumentos(rs.getString("c.documentos"));
-               pac.setTopicos(rs.getString("c.topicos"));
                pac.setData_inicio(rs.getDate("c.data_inicio"));
                pac.setData_fim(rs.getDate("c.data_fim"));
             
@@ -134,9 +125,6 @@ public class CursoDAO {
                pac.setIdcurso(rs.getInt("c.idcurso"));
                pac.setNome_curso(rs.getString("c.nome_curso"));
                 pac.setDescricao(rs.getString("c.descricao"));
-                pac.setModalidade_pagto(rs.getString("c.modalidade_pagto"));
-               pac.setDocumentos(rs.getString("c.documentos"));
-               pac.setTopicos(rs.getString("c.topicos"));
                pac.setData_inicio(rs.getDate("c.data_inicio"));
                pac.setData_fim(rs.getDate("c.data_fim"));
             
