@@ -1084,15 +1084,15 @@ img {
 
 /* Contact Area CSS */
 .contact-content {
-  background-color: #eef3f6;
-  padding: 100px 50px;
+  background-color: #ffffff;
+  padding: 200px 50px;
   position: relative;
   z-index: 15;
   top: -200px;
   margin-bottom: -100px; }
-  @media only screen and (max-width: 767px) {
+/*  @media only screen and (max-width: 767px) {
     .contact-content {
-      padding: 50px 30px; } }
+      padding: 50px 30px; } }*/
   .contact-content .section-heading {
     margin-bottom: 30px !important; }
   .contact-content .contact-social-info a {
@@ -1106,12 +1106,12 @@ img {
   .contact-content .contact-form-area {
     padding: 40px 20px;
     background-color: #ffffff; }
-    @media only screen and (min-width: 768px) and (max-width: 991px) {
+/*    @media only screen and (min-width: 768px) and (max-width: 991px) {
       .contact-content .contact-form-area {
         margin-top: 100px; } }
     @media only screen and (max-width: 767px) {
       .contact-content .contact-form-area {
-        margin-top: 50px; } }
+        margin-top: 50px; } }*/
     .contact-content .contact-form-area .form-control {
       height: 55px;
       width: 100%;
