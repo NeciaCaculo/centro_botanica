@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .err {
+                color: red;
+            }
+            .warn {
+                color: yellow;
+            }
+            .info {
+                color: blue;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Tipo de Curso</h1>
+        <h:form>
+            <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+            <p:separator />
+        </h:form>
+        <h:form id="form">
+            <p:growl id="msg" showDetail="true"/>
+
+            <p:dataTable id="tabela" var="tipoCurso" 
+                         value="#{tipoCursoMB.listaTipoCurso}" 
+                         editable="true"
+                         editMode="cell"
+                         widgetVar="cellTipoCurso"
+                         style="width: 50%;margin-top: 1.5%">
+
+                <p:ajax event="rowEdit" listener="#{tipoCursoMB.onRowEdit}" update=":form:msg"></p:ajax>
+
+
+                <f:facet name="header">
+                    Tipos de Curso
+                </f:facet>
+                <p:column headerText="Cod" width="10%">
+
+                    <h:outputText value="#{tipoCurso.pktipo_curso}"  />
+                </p:column>
+                <p:column headerText="Designacao">
+                    <p:cellEditor>
+                        <f:facet name="output"> <h:outputText value="#{tipoCurso.designacao}" /></f:facet>
+                        <f:facet name="input"> <h:inputText value="#{tipoCurso.designacao}" label="Designacacao" /></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column width="10%">
+                    <!--<p:rowEditor />-->
+                </p:column>
+
+            </p:dataTable>
+
+            <p:contextMenu for="form" widgetVar="cMenu">   
+                <p:menuitem value="Edit Cell" icon="pi pi-search" onclick="PF('cellTipoCurso').showCellEditor();return false;"/>  
+                <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>  
+            </p:contextMenu> 
+
+            <!-- Modal Novo tipo de curso -->
+            <p:dialog header="Novo Tipo de Curso" widgetVar="dlgNovo" showEffect="explode" hideEffect="bounce" height="auto" width="400">
+                <h:panelGrid columns="2"  >
+                    <p:outputLabel value="Designação" />
+                    <p:inputText  id="designacao" value="#{tipoCursoMB.tipoCurso.designacao}" required="true" />
+                    <p:outputLabel />
+                    <p:commandButton value="registrar" action="#{tipoCursoMB.insert()}" />
+
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+
+
+
+    </h:body>
+</html>
+

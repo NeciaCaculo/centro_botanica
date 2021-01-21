@@ -16,7 +16,7 @@ public class Curso {
     private int idcurso;
     private String nome_curso, descricao, modalidade_pagto, documentos, topicos;
     private Date data_inicio, data_fim;
-    private Tipo_Curso tipo_Curso;
+    private TipoCurso tipo_Curso;
     private Double preco=0.0;
     
 
@@ -24,7 +24,7 @@ public class Curso {
         
     }
 
-    public Curso(int idcurso, String nome_curso, String descricao, String modalidade_pagto, String documentos, String topicos, Date data_inicio, Date data_fim, Tipo_Curso tipo_Curso) {
+    public Curso(int idcurso, String nome_curso, String descricao, String modalidade_pagto, String documentos, String topicos, Date data_inicio, Date data_fim, TipoCurso tipo_Curso) {
         this.idcurso = idcurso;
         this.nome_curso = nome_curso;
         this.descricao = descricao;
@@ -100,11 +100,11 @@ public class Curso {
         this.data_fim = data_fim;
     }
 
-    public Tipo_Curso getTipo_Curso() {
+    public TipoCurso getTipo_Curso() {
         return tipo_Curso;
     }
 
-    public void setTipo_Curso(Tipo_Curso tipo_Curso) {
+    public void setTipo_Curso(TipoCurso tipo_Curso) {
         this.tipo_Curso = tipo_Curso;
     }
 

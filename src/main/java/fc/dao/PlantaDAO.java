@@ -7,7 +7,7 @@ package fc.dao;
 
 import fc.modelo.Curso;
 import fc.util.ConexaoDB;
-import fc.modelo.Tipo_Curso;
+import fc.modelo.TipoCurso;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -96,7 +96,7 @@ public class PlantaDAO {
                pac.setData_inicio(rs.getDate("c.data_inicio"));
                pac.setData_fim(rs.getDate("c.data_fim"));
             
-               Tipo_Curso t = new Tipo_Curso();
+               TipoCurso t = new TipoCurso();
                t.setDesignacao(rs.getString("t.designacao"));
                pac.setTipo_Curso(t);
                
@@ -128,7 +128,7 @@ public class PlantaDAO {
                pac.setData_inicio(rs.getDate("c.data_inicio"));
                pac.setData_fim(rs.getDate("c.data_fim"));
             
-               Tipo_Curso t = new Tipo_Curso();
+               TipoCurso t = new TipoCurso();
                t.setDesignacao(rs.getString("t.designacao"));
                pac.setTipo_Curso(t);
                

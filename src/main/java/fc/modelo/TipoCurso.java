@@ -10,15 +10,15 @@ package fc.modelo;
  *
  * @author Nécia Caculo
  */
-public class Tipo_Curso {
+public class TipoCurso {
 
     private int pk_tipo_curso;
     private String designacao;
     
-    public Tipo_Curso() {
+    public TipoCurso() {
     }
 
-    public Tipo_Curso(int pk_tipo_curso, String designacao) {
+    public TipoCurso(int pk_tipo_curso, String designacao) {
         this.pk_tipo_curso = pk_tipo_curso;
         this.designacao = designacao;
         
