@@ -12,99 +12,71 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
-import org.primefaces.event.RowEditEvent;
 
-@Named( value = "tipoCursoMB" )
-@RequestScoped
-public class TipoCursoMB implements Serializable
-{
+@Named(value = "tipoCursoMB")
+@SessionScoped
+public class TipoCursoMB implements Serializable {
 
     TipoCurso tipoCurso = new TipoCurso();
-    TipoCursoDAO tipo_Cursodao = new TipoCursoDAO();
-    List<TipoCurso> listaTipo_Curso = new ArrayList<>();
+    TipoCursoDAO tipoCursoDao = new TipoCursoDAO();
+    List<TipoCurso> listaTipoCursos = new ArrayList<>();
 
     @PostConstruct
-    public void inicializar()
-    {
-        listaTipo_Curso = tipo_Cursodao.findAll();
+    public void inicializar() {
+      //  listaTipoCursos = tipoCursoDao.findAll();
     }
 
-    public TipoCurso getTipoCurso()
-    {
+    public TipoCurso getTipoCurso() {
         return tipoCurso;
     }
 
-    public void setTipoCurso( TipoCurso tipoCurso )
-    {
+    public void setTipoCurso(TipoCurso tipoCurso) {
         this.tipoCurso = tipoCurso;
     }
 
-    public List<TipoCurso> getListaTipoCurso()
-    {
-
-        return listaTipo_Curso;
+    public List<TipoCurso> getListaTipoCursos() {
+        return listaTipoCursos;
     }
 
-    public void setListaTipo_Curso( List<TipoCurso> listaTipo_Curso )
-    {
-        this.listaTipo_Curso = listaTipo_Curso;
+    public void setListaTipoCursos(List<TipoCurso> listaTipoCursos) {
+        this.listaTipoCursos = listaTipoCursos;
     }
 
-    public String insert()
-    {
-        tipo_Cursodao.insert( tipoCurso );
+    
+    
+    
+    
+    
+    
+    public String insert() {
+        tipoCursoDao.insert(tipoCurso);
         tipoCurso = new TipoCurso();
-        return "tipo_curso?faces-redirect=true";
+        return "tipoCurso-lista?faces-redirect=true";
     }
 
-    public String startEdit()
-    {
-        return "tipo_curso-edit";
+    public String eliminar() {
+        tipoCursoDao.delete(tipoCurso);
+        tipoCurso = new TipoCurso();
+        return null;
     }
 
-    public String finishEdit()
-    {
-        System.out.println( "Designacao: " + tipoCurso.getDesignacao() );
-        tipo_Cursodao.update( tipoCurso );
-        return "tipo_turso";
+    public String prepararEditar() {
+        return "tipoCurso-editar";
     }
 
-    public String delete()
-    {
-        tipo_Cursodao.delete( tipoCurso );
-        return "tipo_Curso?faces-redirect=true";
+    public String editar() {
+        tipoCursoDao.update(tipoCurso);
+        tipoCurso = new TipoCurso();
+        return "tipoCurso-lista?faces-redirect=true";
     }
-
-    public List<SelectItem> getSelectTipo_Cursos()
-    {
-        List<SelectItem> lista = new ArrayList<>();
-        for ( TipoCurso m : tipo_Cursodao.findAll() )
-        {
-            lista.add( new SelectItem( m, m.getDesignacao() ) );
-        }
-        return lista;
-    }
-
-    public void onRowEdit( RowEditEvent event )
-    {
-
-        tipo_Cursodao.update( ( ( TipoCurso ) event.getObject() ) );
-        System.out.println( "Novo Tipo de Curso: " + ( ( TipoCurso ) event.getObject() ).getDesignacao() );
-        FacesMessage msg = new FacesMessage( "Actualizado",
-                ( ( TipoCurso ) event.getObject() ).getPktipo_curso() + "" );
-        FacesContext.getCurrentInstance().addMessage( null, msg );
-
-    }
-
-    public void onRowCancel( RowEditEvent event )
-    {
-        FacesMessage msg = new FacesMessage( "Cancelado por sua ordem.", ( ( TipoCurso ) event.getObject() ).getDesignacao() );
-        FacesContext.getCurrentInstance().addMessage( null, msg );
-
-    }
-
+    
+//     public List<SelectItem> getOpSexos() {
+//        List<SelectItem> list = new ArrayList<>();
+//        for (Sexo sexo : Sexo.values()) {
+//            list.add(new SelectItem(sexo, sexo.getExtensao()));
+//        }
+//        return list;
+//    }
 }
