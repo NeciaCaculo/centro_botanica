@@ -14,8 +14,10 @@ import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 @Named( value = "tipoCursoMB" )
@@ -23,9 +25,13 @@ import org.primefaces.event.RowEditEvent;
 public class TipoCursoMB implements Serializable
 {
 
-    TipoCurso tipoCurso = new TipoCurso();
-    TipoCursoDAO tipo_Cursodao = new TipoCursoDAO();
+    @Inject
+    TipoCurso tipoCurso;
+    @Inject
+    TipoCursoDAO tipo_Cursodao;
     List<TipoCurso> listaTipo_Curso = new ArrayList<>();
+
+    private final String MESMA_PAGINA = "tipo_curso?faces-redirect=true";
 
     @PostConstruct
     public void inicializar()
@@ -56,27 +62,20 @@ public class TipoCursoMB implements Serializable
 
     public String insert()
     {
-        tipo_Cursodao.insert( tipoCurso );
-        tipoCurso = new TipoCurso();
-        return "tipo_curso?faces-redirect=true";
-    }
 
-    public String startEdit()
-    {
-        return "tipo_curso-edit";
-    }
+        if ( !tipo_Cursodao.existeDesignacao( tipoCurso.getDesignacao() ) )
+        {
+            tipo_Cursodao.insert( tipoCurso );
+            tipoCurso = new TipoCurso();
+            return MESMA_PAGINA;
+        }
+        else
+        {
+            tipoCurso = new TipoCurso();
+            mostrarMenssagem( FacesMessage.SEVERITY_WARN, "AVISO", "Caro usuário já existe um tipo de curso com esta designação" );
+            return "";
+        }
 
-    public String finishEdit()
-    {
-        System.out.println( "Designacao: " + tipoCurso.getDesignacao() );
-        tipo_Cursodao.update( tipoCurso );
-        return "tipo_turso";
-    }
-
-    public String delete()
-    {
-        tipo_Cursodao.delete( tipoCurso );
-        return "tipo_Curso?faces-redirect=true";
     }
 
     public List<SelectItem> getSelectTipo_Cursos()
@@ -84,7 +83,7 @@ public class TipoCursoMB implements Serializable
         List<SelectItem> lista = new ArrayList<>();
         for ( TipoCurso m : tipo_Cursodao.findAll() )
         {
-            lista.add( new SelectItem( m, m.getDesignacao() ) );
+            lista.add( new SelectItem( m.getPktipo_curso(), m.getDesignacao() ) );
         }
         return lista;
     }
@@ -94,17 +93,28 @@ public class TipoCursoMB implements Serializable
 
         tipo_Cursodao.update( ( ( TipoCurso ) event.getObject() ) );
         System.out.println( "Novo Tipo de Curso: " + ( ( TipoCurso ) event.getObject() ).getDesignacao() );
-        FacesMessage msg = new FacesMessage( "Actualizado",
-                ( ( TipoCurso ) event.getObject() ).getPktipo_curso() + "" );
-        FacesContext.getCurrentInstance().addMessage( null, msg );
+        mostrarMenssagem( FacesMessage.SEVERITY_INFO, "INFO: ", "Registro actualizado com sucesso" );
 
     }
 
-    public void onRowCancel( RowEditEvent event )
+    public String onRowCancel( RowEditEvent event )
     {
-        FacesMessage msg = new FacesMessage( "Cancelado por sua ordem.", ( ( TipoCurso ) event.getObject() ).getDesignacao() );
-        FacesContext.getCurrentInstance().addMessage( null, msg );
+        try
+        {
+            mostrarMenssagem( FacesMessage.SEVERITY_INFO, "INFO: ", "Cancelado por sua ordem." );
+            return "";
+        }
+        catch ( Exception e )
+        {
+            mostrarMenssagem( FacesMessage.SEVERITY_ERROR, "ERRO: ", "Falha ao eliminar o registro." );
+        }
+        return "";
 
+    }
+
+    public void mostrarMenssagem( Severity severity, String resumo, String detalhe )
+    {
+        FacesContext.getCurrentInstance().addMessage( null, new FacesMessage( severity, resumo, detalhe ) );
     }
 
 }

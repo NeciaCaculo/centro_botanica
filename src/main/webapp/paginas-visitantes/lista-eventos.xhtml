@@ -80,9 +80,9 @@
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="Ensino.html">Nossas Plantas</a></li>
-                                    <li><a href="Contactos.html">Nossos Cursos</a></li>
-                                    <li><a href="Contactos.html">Eventos</a></li>
-                                    <li><a href="Contactos.html">Contactos</a></li>
+                                   <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
+                                    <li><a href="lista-eventos.jsf">Eventos</a></li>
+                                    <li><a href="inserirContacto.jsf">Contactos</a></li>
                                     
                                 </ul>
                             </div>
@@ -97,14 +97,40 @@
         </div>
     </header>
 
-    <div class="academy-courses-area section-padding-100-0">
-
-    <div class="container">
-      
-   </div> 
-  </div>       
-    
-    
+    <div class="top-popular-courses-area section-padding-100-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms">
+                        
+                        <h3>Eventos Realizados</h3>
+                        
+                        <div class="row">
+               
+                <!-- Single Top Popular Course -->
+                
+                            <h:form style="width: 80%; margin: 20px">
+                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="1">
+                                 <h:column>
+                                     <f:facet name="header">Título</f:facet>
+                                     <h:outputText value="#{e.titulo}"/>
+                                   </h:column>
+                                    <h:column>
+                                     <f:facet name="header">Imagem</f:facet>
+                                     <h:graphicImage value="#{e.caminho_imagem}" width="200px" height="100px"/>
+                                   </h:column>
+                                </h:dataTable>
+                            </h:form>
+                            
+                            
+                    
+                </div>
+            </div>
+        </div>    
+    </div>
+        
+   </div>
+  </div>      
     
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">

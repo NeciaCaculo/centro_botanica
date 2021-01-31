@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/01/2021, 20:45:39
+    Author     : mac
+*/
+
+
+
+
+.ui-widget,
+.ui-widget .ui-widget {
+    font-size: 13px !important;
+}
+
+
+
+
+
+
+.conteudo_admin{
+    border: yellowgreen dashed medium;
+    height: auto;
+    width: 80%;
+
+}
+

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Curso {
 
-    private int idcurso;
+    private int pk_curso;
     private String nome_curso, descricao, modalidade_pagto, documentos, topicos;
     private Date data_inicio, data_fim;
     private TipoCurso tipo_Curso;
@@ -25,7 +25,7 @@ public class Curso {
     }
 
     public Curso(int idcurso, String nome_curso, String descricao, String modalidade_pagto, String documentos, String topicos, Date data_inicio, Date data_fim, TipoCurso tipo_Curso) {
-        this.idcurso = idcurso;
+        this.pk_curso = idcurso;
         this.nome_curso = nome_curso;
         this.descricao = descricao;
         this.modalidade_pagto = modalidade_pagto;
@@ -36,12 +36,12 @@ public class Curso {
         this.tipo_Curso = tipo_Curso;
     }
 
-    public int getIdcurso() {
-        return idcurso;
+    public int getPk_curso() {
+        return pk_curso;
     }
 
-    public void setIdcurso(int idcurso) {
-        this.idcurso = idcurso;
+    public void setPk_curso(int pk_curso) {
+        this.pk_curso = pk_curso;
     }
 
     public String getNome_curso() {

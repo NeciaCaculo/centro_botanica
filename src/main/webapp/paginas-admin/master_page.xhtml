@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> <ui:insert name="titulo">Master Page Admin</ui:insert></title>
+        <h:outputStylesheet library="css" name="style_admin.css"/>
+        <script type="text/javascript">
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día',
+                today: 'Hoy',
+                clear: 'Claro'
+            };
+            PrimeFaces.locales ['de'] = {
+                closeText: 'Schließen',
+                prevText: 'Zurück',
+                nextText: 'Weiter',
+                monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+                monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+                dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+                weekHeader: 'Woche',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Nur Zeit',
+                timeText: 'Zeit',
+                hourText: 'Stunde',
+                minuteText: 'Minute',
+                secondText: 'Sekunde',
+                currentText: 'Aktuelles Datum',
+                ampm: false,
+                month: 'Monat',
+                week: 'Woche',
+                day: 'Tag',
+                allDayText: 'Ganzer Tag',
+                today: 'Heute',
+                clear: 'Löschen'
+            };
+        </script>
+
+
+
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar>
+                    <p:submenu label="Ficheiro" icon="pi pi-file">
+                        <p:submenu label="Novo" icon="pi pi-briefcase">
+                            <p:menuitem value="Curso" url="curso.xhtml"/>
+                        </p:submenu>
+                        <p:separator/>
+                        <p:menuitem value="File Upload" url="file_upload.xhtml"/>
+                        <p:menuitem value="Quit" url="#"/>
+                    </p:submenu>
+
+                    <p:submenu label="Tabelas" icon="pi pi-cog">
+                        <p:menuitem value="Tipo de Curso" url="tipo_curso.xhtml"/>
+                    </p:submenu>
+
+                    <p:menuitem value="Quit" url="http://www.primefaces.org" icon="pi pi-times"/>
+
+                    <f:facet name="options">
+                        <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
+                        <p:commandButton type="button" value="Logout" icon="pi pi-home"/>
+                    </f:facet>
+                </p:menubar>
+            </h:form>
+        </div>  
+        <div class="conteudo_admin">
+            <ui:insert name="conteudo">conteudo</ui:insert>
+        </div>
+
+
+    </h:body>
+</html>
+
