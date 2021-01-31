@@ -85,9 +85,9 @@
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="Ensino.html">Nossas Plantas</a></li>
-                                    <li><a href="Contactos.html">Nossos Cursos</a></li>
-                                    <li><a href="Contactos.html">Eventos</a></li>
-                                    <li><a href="Contactos.html">Contactos</a></li>
+                                    <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
+                                    <li><a href="lista-eventos.jsf">Eventos</a></li>
+                                    <li><a href="inserirContacto.jsf">Contactos</a></li>
                                     
                                 </ul>
                             </div>
@@ -106,8 +106,8 @@
 
     <div class="container">
       <h:form style="width: 80%; margin: 20px">
-            <h:dataTable value="#{cursoMB.listaCurso}" var="c" border="1">
-                <f:facet name="header"> Cursos: Lista geral</f:facet>
+            <h:dataTable class="table table-dark table-striped table-hover" value="#{cursoMB.listaCurso}" var="c" border="1">
+                <f:facet name="header"> Lista geral de Cursos</f:facet>
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
                     <h:outputText value="#{c.nome_curso}"/>
@@ -141,10 +141,7 @@
                     <h:outputText value="#{c.tipo_Curso.designacao}"/>
                 </h:column>
                 
-                <h:column>
-                   <a href="#">Inscrever-se</a>
-                    
-                </h:column>
+               
                 
             </h:dataTable>
             </h:form>        
