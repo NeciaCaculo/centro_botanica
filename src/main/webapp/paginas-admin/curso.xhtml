@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+
+        <ui:composition template="./master_page.xhtml">
+
+            <ui:define name="conteudo">
+                <h1>Curso</h1>
+                <p:messages showDetail="true" closable="true" style="width: 50%">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:form id="formNovo">
+                    <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+                    <p:separator  />
+                </h:form>
+                <h:form id="form">
+
+                    <!--            <p:growl id="msg" showDetail="true"/>-->
+                    <p:dataTable id="tabela" var="curso" 
+                                 value="#{cursoMB.listaCurso}" 
+                                 editable="true"
+                                 rendered="true"
+                                 style="width: 95%;margin-top: 1.5%">
+
+                        <p:ajax event="rowEdit" listener="#{cursoMB.onRowEdit}" ></p:ajax>
+                        <p:ajax event="rowEditCancel" listener="#{cursoMB.onRowCancel}" ></p:ajax>
+
+                        <p:column headerText="Cod" width="10%">
+
+                            <h:outputText value="#{curso.pk_curso}"  />
+                        </p:column>
+
+
+                        <p:column headerText="Nome">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{curso.nome_curso}" /></f:facet>
+                                <f:facet name="input"> <h:inputText value="#{curso.nome_curso}" label="Designacacao" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Data de Inicio">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputLabel value="#{curso.data_inicio}" /></f:facet>
+                                <f:facet name="input"> <h:inputText value="#{curso.data_inicio}" label="Data de Inicio" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Data de Fim">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputLabel value="#{curso.data_fim}" /></f:facet>
+                                <f:facet name="input"> <h:inputText value="#{curso.data_fim}" label="Data de Fim" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Preço">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputLabel value="#{curso.preco}" /></f:facet>
+                                <f:facet name="input"> <h:inputText value="#{curso.preco}" label="Preço" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Acção"  >
+                            <center>
+                                <p:commandLink value="editar"   actionListener="#{cursoMB.actualizar( curso) }"   update=":formDialogEditar"   oncomplete="PF('dlgEditar').show();"    style=" margin-right: 5px;"/>
+                                <p:commandLink value="eliminar"/>
+                            </center>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                </h:form>
+
+
+                <h:form id="formDialogNovo">
+                    <!-- Modal Novo Curso -->
+                    <p:dialog header="Novo Curso"
+                              widgetVar="dlgNovo" 
+                              height="500" 
+                              width="700">
+
+                        <h:panelGrid columns="2" style="padding: 20px;"  >
+
+                            <p:outputLabel value="Nome" />
+                            <p:inputText  id="designacao" value="#{cursoMB.curso.nome_curso}"   required="true" style="width: 250px;" />
+
+                            <p:outputLabel  for="data_inicio" value="Data de inicio do curso" />
+                            <p:datePicker  id="data_inicio"  value="#{ cursoMB.curso.data_inicio }" />
+
+                            <p:outputLabel  for="data_fim" value="Data de fim do Curso" />
+                            <p:datePicker  id="data_fim"  value="#{ cursoMB.curso.data_fim }" />
+
+                            <p:outputLabel for="preco" value="Preço do curso" />
+                            <p:inputNumber id="preco" value="#{cursoMB.curso.preco}" 
+                                           symbol=" Kz"
+                                           emptyValue="0"
+                                           symbolPosition="s"
+                                           decimalSeparator=","
+                                           thousandSeparator="."
+                                           />
+
+                            <p:outputLabel value="Modalidade de Pagamento"/>
+                            <p:selectOneRadio id="console" value="#{cursoMB.curso.modalidade_pagto}" unselectable="true">
+                                <f:selectItem itemLabel="Trimestral" itemValue="Trimestral"/>
+                                <f:selectItem itemLabel="Semestral" itemValue="Semestral"/>
+                                <f:selectItem itemLabel="Anual" itemValue="Anual"/>
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Tipo do Curso" />
+                            <p:selectOneMenu value="#{cursoMB.idTipoCurso}"  >
+                                <f:selectItems value="#{tipoCursoMB.selectTipo_Cursos}" 
+                                               var="tc" 
+                                               itemLabel="#{tc.description}" 
+                                               itemValue="#{tc.value}" />
+
+                            </p:selectOneMenu>
+
+
+
+                            <p:outputLabel  value="Descrição" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.curso.descricao}"   />
+
+                            <p:outputLabel  value="Tópicos" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.curso.topicos}"  />
+
+
+                            <p:outputLabel />
+                            <p:commandButton value="registrar"  action="#{cursoMB.insert()}"  update=":form:tabela" oncomplete="PF('dlgNovo').hide();" />
+                        </h:panelGrid>
+
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDialogEditar">
+                    <!-- Modal Novo Curso -->
+                    <p:dialog header="Editar Curso"
+                              widgetVar="dlgEditar" 
+                              height="500" 
+                              width="700">
+
+                        <h:panelGrid columns="2" style="padding: 20px;"  >
+
+
+                            <p:outputLabel value="Nome" />
+                            <p:inputText  id="designacao" value="#{cursoMB.cursoEdit.nome_curso}" required="true"  style="width: 250px;" />
+
+                            <p:outputLabel  for="data_inicio" value="Data de inicio do curso" />
+                            <p:datePicker  id="data_inicio"  value="#{ cursoMB.cursoEdit.data_inicio }" />
+
+                            <p:outputLabel  for="data_fim" value="Data de fim do Curso" />
+                            <p:datePicker  id="data_fim"  value="#{ cursoMB.cursoEdit.data_fim }" />
+
+                            <p:outputLabel for="preco" value="Preço do curso" />
+                            <p:inputNumber id="preco" value="#{cursoMB.cursoEdit.preco}" 
+                                           symbol=" Kz"
+                                           emptyValue="0"
+                                           symbolPosition="s"
+                                           decimalSeparator=","
+                                           thousandSeparator="."
+                                           />
+
+                            <p:outputLabel value="Modalidade de Pagamento"/>
+                            <p:selectOneRadio id="console" value="#{cursoMB.cursoEdit.modalidade_pagto}" unselectable="true">
+                                <f:selectItem itemLabel="Trimestral" itemValue="Trimestral"/>
+                                <f:selectItem itemLabel="Semestral" itemValue="Semestral"/>
+                                <f:selectItem itemLabel="Anual" itemValue="Anual"/>
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Tipo do Curso" />
+                            <p:selectOneMenu value="#{cursoMB.idTipoCurso}"  >
+                                <f:selectItems value="#{tipoCursoMB.selectTipo_Cursos}" 
+                                               var="tc" 
+                                               itemLabel="#{tc.description}" 
+                                               itemValue="#{tc.value}" />
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  value="Descrição" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.cursoEdit.descricao}"   />
+
+                            <p:outputLabel  value="Tópicos" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.cursoEdit.topicos}"  />
+
+                            <p:outputLabel />
+                            <p:commandButton value="Editar"  action="#{cursoMB.editar()}" update=":form:tabela" oncomplete="PF('dlgEditar').hide();" />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

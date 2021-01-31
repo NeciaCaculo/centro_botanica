@@ -13,7 +13,8 @@ import java.sql.SQLException;
 
 public class ConexaoDB {
 
-    private String URL = "jdbc:mysql://127.0.0.1:3306/botanicadb?useSSL=false&serverTimezone=UTC";
+//    private String URL = "jdbc:mysql://localhost:3306/botanicadb?useSSL=false&serverTimezone=UTC";
+    private String URL = "jdbc:mysql://127.0.0.1:3306/botanicadb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private String DRIVERMYSQL8 = "com.mysql.cj.jdbc.Driver";
     private String DRIVERMYSQL5 = "com.mysql.jdbc.Driver";
     private String USER = "root";

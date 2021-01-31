@@ -72,7 +72,7 @@ public class PlantaDAO {
         try {
             Connection con = conexao.ligarBB();
             ps = con.prepareStatement(DELETE);
-            ps.setInt(1, pac.getIdcurso());
+            ps.setInt(1, pac.getPk_curso());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao Eliminar o Registro: "+e.getLocalizedMessage());
@@ -90,7 +90,7 @@ public class PlantaDAO {
           rs = ps.executeQuery();
            while (rs.next()) {               
                Curso pac = new Curso();
-               pac.setIdcurso(rs.getInt("c.idcurso"));
+               pac.setPk_curso(rs.getInt("c.idcurso"));
                pac.setNome_curso(rs.getString("c.nome_curso"));
                pac.setDescricao(rs.getString("c.descricao"));
                pac.setData_inicio(rs.getDate("c.data_inicio"));
@@ -122,7 +122,7 @@ public class PlantaDAO {
           rs = ps.executeQuery();
            while (rs.next()) {               
                Curso pac = new Curso();
-               pac.setIdcurso(rs.getInt("c.idcurso"));
+               pac.setPk_curso(rs.getInt("c.idcurso"));
                pac.setNome_curso(rs.getString("c.nome_curso"));
                 pac.setDescricao(rs.getString("c.descricao"));
                pac.setData_inicio(rs.getDate("c.data_inicio"));

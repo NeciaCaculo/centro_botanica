@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-    <!-- Define Persistence Unit -->
-    <persistence-unit name="my_persistence_unit">
-        
-    </persistence-unit>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="my_persistence_unit">
+    <class>fc.entity.Eventos</class>
+    <class>fc.entity.Contacto</class>
+    <class>fc.entity.TipoCurso</class>
+    <class>fc.entity.Autor</class>
+    <class>fc.entity.ObraLiteraria</class>
+    <class>fc.entity.Planta</class>
+    <class>fc.entity.EstadoConservacao</class>
+    <class>fc.entity.Usuario</class>
+    <class>fc.entity.GrupoPlanta</class>
+    <class>fc.entity.PlantaHasObraLiteraria</class>
+    <class>fc.entity.Curso</class>
+    <class>fc.entity.ObraLiterariaAutor</class>
+  </persistence-unit>
 </persistence>
