@@ -24,4 +24,10 @@
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
     
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>auto</param-value>
+    </context-param>
+  
+    
 </web-app>

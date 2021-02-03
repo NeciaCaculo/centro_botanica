@@ -8,7 +8,6 @@
 
 
     <body>
-
         <ui:composition template="./master_page.xhtml">
 
             <ui:define name="conteudo">
@@ -64,6 +63,11 @@
                                 <f:facet name="output"> <h:outputLabel value="#{curso.preco}" /></f:facet>
                                 <f:facet name="input"> <h:inputText value="#{curso.preco}" label="Preço" /></f:facet>
                             </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Documentos">
+                            <h:outputLabel value="#{curso.documentos}" />
+
                         </p:column>
 
                         <p:column headerText="Acção"  >
@@ -127,6 +131,9 @@
                             <p:outputLabel  value="Descrição" />
                             <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.curso.descricao}"   />
 
+                            <p:outputLabel  value="Documentos" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.curso.documentos}"   />
+
                             <p:outputLabel  value="Tópicos" />
                             <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.curso.topicos}"  />
 
@@ -186,6 +193,9 @@
                             <p:outputLabel  value="Descrição" />
                             <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.cursoEdit.descricao}"   />
 
+                            <p:outputLabel  value="Documentos" />
+                            <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.cursoEdit.documentos}"   />
+
                             <p:outputLabel  value="Tópicos" />
                             <p:inputTextarea rows="6" cols="30"  maxlength="200" value="#{cursoMB.cursoEdit.topicos}"  />
 
@@ -193,7 +203,6 @@
                             <p:commandButton value="Editar"  action="#{cursoMB.editar()}" update=":form:tabela" oncomplete="PF('dlgEditar').hide();" />
 
                         </h:panelGrid>
-
                     </p:dialog>
                 </h:form>
 
