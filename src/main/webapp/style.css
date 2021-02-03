@@ -339,13 +339,13 @@ img {
     position: absolute;
     width: 100%;
     height: 85px;
-    background-color: transparent;
+    background-color:transparent;
     top: 95px;
     z-index: 100;
     left: 0;
     right: 0; }
     .header-area .academy-main-menu .classy-nav-container {
-      background-color: transparent; }
+      background-color:transparent; }
     .header-area .academy-main-menu .classy-navbar {
       background-color: #83c331;
       height: 85px;

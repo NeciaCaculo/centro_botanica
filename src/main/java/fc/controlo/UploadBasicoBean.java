@@ -5,62 +5,127 @@
  */
 package fc.controlo;
 
-import java.io.File;
+import fc.dao.EventoDAO;
+import fc.util.DefsUtil;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author mac
+ * @author Domingos Dala Vunge
  */
 @Named( value = "uploadBasicoBean" )
 @SessionScoped
 public class UploadBasicoBean implements Serializable
 {
 
+   
+    private EventoDAO eventoDAO;
     
-    transient private UploadedFile uploadedFile;
-
-    public UploadedFile getUploadedFile()
+    
+    @PostConstruct
+    public void iniciar()
     {
-        return uploadedFile;
+        eventoDAO = new EventoDAO();
     }
-
-    public void setUploadedFile( UploadedFile uploadedFile )
+    
+    public void handleFileUpload( FileUploadEvent event )
     {
-        this.uploadedFile = uploadedFile;
-    }
+        UploadedFile file = event.getFile();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
-    public void upload()
-    {
+        String realPath = DefsUtil.getPathGlassfish( DefsUtil.CAMINHO_EVENTOS ) + "/" + file.getFileName();
+
         try
         {
-            ServletContext servletContext = ( ServletContext ) FacesContext.getCurrentInstance().getExternalContext().getContext();
-            System.err.println( "File Name: " + uploadedFile.getFileName() );
-//            String newFileName = servletContext.getRealPath( "" ) + File.separator + "uploaded" + File.separator + uploadedFile.getFileName();
-            File file = new File( uploadedFile.getFileName() );
-
-            OutputStream out = new FileOutputStream( file );
-            out.write( uploadedFile.getContents() );
+            InputStream in = file.getInputstream();
+            OutputStream out = new FileOutputStream( realPath );
+            byte[] buffer = new byte[ ( int ) file.getSize() ];
+            int contador = 0;
+            while ( ( contador = in.read( buffer ) ) != -1 )
+            {
+                out.write( buffer, 0, contador );
+            }
+            in.close();
             out.close();
 
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage( "Upload completo",
-                            "O arquivo " + uploadedFile.getFileName() + " foi salvo!" ) );
         }
         catch ( IOException e )
         {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Erro", e.getMessage() ) );
+            e.printStackTrace();
         }
+
+    }
+
+    public String enderecoIp() throws SocketException, UnknownHostException
+    {
+        String meuIp = null;
+
+        Enumeration e = NetworkInterface.getNetworkInterfaces();
+        while ( e.hasMoreElements() )
+        {
+            NetworkInterface i = ( NetworkInterface ) e.nextElement();
+            Enumeration ds = i.getInetAddresses();
+            while ( ds.hasMoreElements() )
+            {
+                InetAddress myself = ( InetAddress ) ds.nextElement();
+
+                if ( !myself.isLoopbackAddress() && myself.isSiteLocalAddress() )
+                {
+
+                    meuIp = myself.getHostAddress();
+
+                }
+            }
+        }
+        return meuIp;
+
+    }
+
+    public String endereco() throws SocketException, UnknownHostException
+    {
+        String c;
+
+        if ( enderecoIp() != null )
+        {
+            c = enderecoIp();
+
+        }
+        else //c= getEnderecoIP();
+        {
+            c = "localhost";
+        }
+
+        return c;
+    }
+
+    public List<String> getNomeImagensEventos()
+    {
+        List<String> list = new ArrayList<>();
+
+//        list.add( "logo_skype.jpg" );
+//        list.add( "HTML-Website.jpg" );
+        
+        
+        
+        return eventoDAO.getAllImagens();
 
     }
 
