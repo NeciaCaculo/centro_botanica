@@ -29,7 +29,7 @@ public class CursoMB implements Serializable
 {
 
     @Inject
-    transient Curso curso, cursoEdit;
+    transient Curso curso, cursoEdit, cursoEliminar;
     @Inject
     transient CursoDAO cursodao;
     @Inject
@@ -97,7 +97,6 @@ public class CursoMB implements Serializable
 
         TipoCurso tipoCurso = tipoCursoDAO.findById( Integer.parseInt( idTipoCurso ) );
         curso.setTipo_Curso( tipoCurso );
-        curso.setDocumentos( "file.extensao" );
         String dataFim = ( curso.getData_fim() == null ) ? "null" : "";
 
         System.out.println( "**** MOSTAR DADOS ****" );
@@ -139,10 +138,32 @@ public class CursoMB implements Serializable
         //return MESMA_PAGINA;
     }
 
+    public void refreshPagina()
+    {
+        listaCurso = cursodao.findAll();
+    }
+
     public void actualizar( Curso curso )
     {
         System.out.println( " IDCURSOPARM: " + curso.getPk_curso() );
         cursoEdit = curso;
+
+    }
+
+    public void preparar_eliminar( Curso curso )
+    {
+        System.err.println( "CURSO ELIMINAR: " +curso.getPk_curso() );
+        cursoEliminar = curso;
+    }
+
+    public void eliminar(Curso curso)
+    {
+        System.out.println( "Eliminar" );
+        if ( curso != null )
+        {
+            cursodao.delete( curso );
+            listaCurso = cursodao.findAll();
+        }
 
     }
 

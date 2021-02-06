@@ -26,10 +26,10 @@ public class EventoDAO
     private String SELECT_ALL = "SELECT e.pk_eventos, e.titulo, e.data_evento, e.descricao, e.nome_imagem, e.caminho_imagem, u.nomeCompleto  FROM eventos e INNER JOIN usuario u ON u.pkusuario = e.fk_usuario";
     private String SELECT_ALL_IMAGENS = "SELECT nome_imagem FROM eventos";
     private String INSERT = "INSERT INTO eventos (`titulo`,`data_evento`, `descricao`, `nome_imagem`, `caminho_imagem`, `nomeCompleto`) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private String EDITE = "UPDATE eventos SET titulo = ?, data_evento = ?, descricao= ?, nome_imagem= ?, caminho_imagem= ?, nomeCompleto = ?";
+    private String EDITE = "UPDATE eventos SET titulo = ?, data_evento = ?, descricao = ?, nome_imagem = ? WHERE pk_eventos = ?";
     private String DELETE = "DELETE FROM eventos WHERE pk_eventos = ?;";
     private String LIST_BY_NAME = "SELECT e.pk_eventos, e.titulo, e.data_evento, e.descricao, e.nome_imagem, e.caminho_imagem, u.nomeCompleto FROM eventos e INNER JOIN usuario u ON u.pkusuario = e.fk_usuario WHERE e.titulo LIKE ?";
-    private String INSERTE = "INSERT INTO `eventos` (`titulo`,`data_evento`, `descricao`, `nome_imagem`, `caminho_imagem`, `nomeCompleto`) VALUES ( ?, ?, ?, ?, ?, ?, ?);";
+    private String INSERTE = "INSERT INTO eventos (titulo , data_evento, descricao, nome_imagem, caminho_imagem, fk_usuario) VALUES ( ?, ?, ?, ?, ?, ?);";
 
     ConexaoDB conexao = new ConexaoDB();
 
@@ -43,11 +43,10 @@ public class EventoDAO
             ps = con.prepareStatement( EDITE );
 
             ps.setString( 1, pac.getTitulo() );
-            ps.setDate( 2, ( Date ) pac.getData_evento() );
+            ps.setDate( 2, new Date( pac.getData_evento().getTime() ) );
             ps.setString( 3, pac.getDescricao() );
             ps.setString( 4, pac.getNome_imagem() );
-            ps.setString( 5, pac.getCaminho_imagem() );
-            ps.setString( 6, pac.getUsuario().getNomeCompleto() );
+            ps.setInt( 5, pac.getPk_evento() );
             ps.executeUpdate();
         }
         catch ( SQLException e )
@@ -63,13 +62,15 @@ public class EventoDAO
         try
         {
             Connection con = conexao.ligarBB();
+
+            // (titulo , data_evento, descricao, nome_imagem, caminho_imagem, fk_usuario)
             ps = con.prepareStatement( INSERTE );
             ps.setString( 1, pac.getTitulo() );
-            ps.setDate( 2, ( Date ) pac.getData_evento() );
+            ps.setDate( 2, new Date( pac.getData_evento().getTime() ) );
             ps.setString( 3, pac.getDescricao() );
             ps.setString( 4, pac.getNome_imagem() );
             ps.setString( 5, pac.getCaminho_imagem() );
-            ps.setString( 6, pac.getUsuario().getNomeCompleto() );
+            ps.setInt( 6, pac.getUsuario().getPkusuario() );
             ps.executeUpdate();
         }
         catch ( SQLException e )

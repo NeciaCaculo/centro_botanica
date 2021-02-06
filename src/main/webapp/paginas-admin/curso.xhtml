@@ -17,6 +17,7 @@
                 </p:messages>
                 <h:form id="formNovo">
                     <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+                    <p:commandButton value="Refresh"  update=":form:tabela" action="#{cursoMB.refreshPagina}"  />     
                     <p:separator  />
                 </h:form>
                 <h:form id="form">
@@ -73,12 +74,19 @@
                         <p:column headerText="Acção"  >
                             <center>
                                 <p:commandLink value="editar"   actionListener="#{cursoMB.actualizar( curso) }"   update=":formDialogEditar"   oncomplete="PF('dlgEditar').show();"    style=" margin-right: 5px;"/>
-                                <p:commandLink value="eliminar"/>
+                                <p:commandButton value="eliminar" actionListener="#{cursoMB.eliminar(curso)}" update=":form:tabela" >
+                                     <!--<p:confirm header="Confirmação"   message="Caro usuário tens a certeza que pretende eliminar?" icon="pi pi-info-circle"/>-->
+                                </p:commandButton>
                             </center>
                         </p:column>
 
                     </p:dataTable>
 
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"  actionListener="#{cursoMB.eliminar(null)}" update=":form:tabela" />
+                    </p:confirmDialog>
 
                 </h:form>
 
@@ -87,7 +95,7 @@
                     <!-- Modal Novo Curso -->
                     <p:dialog header="Novo Curso"
                               widgetVar="dlgNovo" 
-                              height="500" 
+                              height="auto" 
                               width="700">
 
                         <h:panelGrid columns="2" style="padding: 20px;"  >
@@ -150,8 +158,8 @@
                     <!-- Modal Novo Curso -->
                     <p:dialog header="Editar Curso"
                               widgetVar="dlgEditar" 
-                              height="500" 
-                              width="700">
+                              height="auto" 
+                              width="750">
 
                         <h:panelGrid columns="2" style="padding: 20px;"  >
 

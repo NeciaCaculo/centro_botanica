@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <body>
+        <ui:composition template="./master_page.xhtml">
+            <ui:define name="titulo">
+                Eventos
+            </ui:define>
+
+            <ui:define name="conteudo">
+                <h1>Evento</h1>
+                <p:messages showDetail="true" closable="true" style="width: 50%">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:form id="formNovo">
+                    <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+                    <p:commandButton value="Refresh"  update=":form:tabela" action="#{cursoMB.refreshPagina}"  />     
+                    <p:separator  />
+                </h:form>
+                <h:form id="form">
+
+                    <!--            <p:growl id="msg" showDetail="true"/>-->
+                    <p:dataTable id="tabela" var="evento" 
+                                 value="#{eventoMB.listaEventos}" 
+                                 editable="true"
+                                 rendered="true"
+                                 style="width: 95%;margin-top: 1.5%">
+
+                        <p:ajax event="rowToggle"  />
+
+                        <p:column headerText="Cod" width="10%">
+
+                            <h:outputText value="#{evento.pk_evento}"  />
+                        </p:column>
+
+
+                        <p:column headerText="Título">
+                            <h:outputText value="#{evento.titulo}" />
+                        </p:column>
+
+                        <p:column headerText="Data do evento">
+                            <h:outputLabel value="#{evento.data_evento}" />
+                        </p:column>
+
+                        <p:column headerText="Descrição">
+                            <h:outputLabel value="#{evento.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Imagem">
+                            <p:graphicImage  cache="false" 
+                                             height="50px"  
+                                             width="50px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
+                        </p:column>>
+
+                        <p:column headerText="Acção"  >
+                            <center>
+                                <p:commandLink value="editar"  
+                                               actionListener="#{eventoMB.actualizar( evento) }"   
+                                               update=":formDialogEditar"   
+                                               oncomplete="PF('dlgEditar').show();"    
+                                               style=" margin-right: 5px;"/>
+
+                                <p:commandButton value="eliminar" 
+                                                 actionListener="#{eventoMB.eliminar(evento)}" 
+                                                 update=":form:tabela" >
+                                    <!--<p:confirm header="Confirmação"   message="Caro usuário tens a certeza que pretende eliminar?" icon="pi pi-info-circle"/>-->
+                                </p:commandButton>
+                            </center>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"  actionListener="#{cursoMB.eliminar(null)}" update=":form:tabela" />
+                    </p:confirmDialog>
+
+                </h:form>
+
+
+                <h:form id="formDialogNovo" enctype="multipart/form-data">
+                    <!-- Modal Novo Curso -->
+                    <p:dialog header="Novo Evento"
+                              widgetVar="dlgNovo" 
+                              height="auto" 
+                              width="700">
+
+                        <h:panelGrid columns="2" style="padding: 20px;"  >
+
+                            <p:outputLabel value="Título" />
+                            <p:inputText  id="evento" 
+                                          value="#{eventoMB.evento.titulo}"  
+                                          required="true" style="width: 250px;" />
+
+                            <p:outputLabel  for="data_evento" value="Data de inicio do curso" />
+                            <p:datePicker  id="data_evento" 
+                                           value="#{ eventoMB.evento.data_evento }" />
+
+
+                            <p:outputLabel  value="Descrição" />
+                            <p:inputTextarea 
+                                rows="6" 
+                                cols="30" 
+                                maxlength="200" 
+                                value="#{eventoMB.evento.descricao}"/>
+
+                            <p:outputLabel  value="Imagem" />
+                            <p:fileUpload label="Seleccione" 
+                                          value="#{eventoMB.fileEvento}" 
+                                          mode="simple" skinSimple="true"/>
+
+                            <p:outputLabel />
+                            <p:commandButton value="registrar"  
+                                             action="#{eventoMB.insert()}"  
+                                             ajax="false"
+                                             update=":form:tabela" 
+                                             oncomplete="PF('dlgNovo').hide();" />
+
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDialogEditar" enctype="multipart/form-data">
+                    <!-- Modal Novo Curso -->
+                    <p:dialog header="Editar Evento"
+                              widgetVar="dlgEditar" 
+                              height="auto" 
+                              width="750">
+
+                        <h:panelGrid columns="2" style="padding: 20px;"  >
+
+                            <p:outputLabel value="Título" />
+                            <p:inputText  id="designacao" 
+                                          value="#{eventoMB.eventoEdit.titulo}"  
+                                          required="true" style="width: 250px;" />
+
+                            <p:outputLabel  for="data_evento" value="Data do Evento" />
+                            <p:datePicker  id="data_evento"  
+                                           value="#{ eventoMB.eventoEdit.data_evento }" />
+
+                            <p:outputLabel  value="Descrição" />
+                            <p:inputTextarea 
+                                rows="6" 
+                                cols="30" 
+                                maxlength="200" 
+                                value="#{eventoMB.eventoEdit.descricao}"/>
+
+                            <p:outputLabel  value="Imagem" />
+                            <p:fileUpload label="Seleccione" 
+                                          value="#{eventoMB.fileEvento}"
+                                          mode="simple" 
+                                          skinSimple="true"/>
+
+                            <p:outputLabel />
+
+                            <p:commandButton value="Editar"  
+                                             action="#{eventoMB.editar()}" 
+                                             update=":form:tabela" 
+                                             ajax="false"
+                                             oncomplete="PF('dlgEditar').hide();" />
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
