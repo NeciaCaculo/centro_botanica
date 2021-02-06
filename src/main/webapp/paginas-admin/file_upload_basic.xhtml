@@ -10,21 +10,17 @@
         <ui:composition template="./master_page.xhtml">
 
             <ui:define name="titulo">
-                Basic
+                File upload basic
             </ui:define>
 
             <ui:define name="conteudo">
 
                 <h:form enctype="multipart/form-data" style="width:500px">
                     <p:growl id="msg"></p:growl>
-                    <p:fileUpload  
-                      
-                        mode="advanced" 
-                        dragDropSupport="false"
-                        sizeLimit="1000000"
-                        fileLimit="3"
-                        allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                        fileUploadListener="#{uploadBasicoBean.handleFileUpload}" update="formImagens"  ></p:fileUpload>
+
+                    <p:fileUpload label="Seleccione" value="#{uploadBasicoBean.file}" mode="simple" skinSimple="true"/>
+                    <p:commandButton value="registrar"  ajax="false" action="#{uploadBasicoBean.upload()}" update="formImagens" />
+
                 </h:form>
 
                 <h:form id="formImagens">
