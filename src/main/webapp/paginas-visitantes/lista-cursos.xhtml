@@ -76,7 +76,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="Historico.html">Sobre Nós</a>
+                                    <li><a href="Historico.html">Sobre Nós</a></li>
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="Ensino.html">Nossas Plantas</a></li>
@@ -100,9 +100,13 @@
     <div class="academy-courses-area section-padding-100-0">
 
     <div class="container">
+        
+        <a href="lista-cursos2.jsf" class="btn academy-btn">Visualizar em Colunas</a>
+        
       <h:form style="width: 80%; margin: 20px">
             <h:dataTable class="table table-dark table-striped table-hover" value="#{cursoMB.listaCurso}" var="c" border="1">
                 <f:facet name="header"> Lista geral de Cursos</f:facet>
+                
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
                     <h:outputText value="#{c.nome_curso}"/>

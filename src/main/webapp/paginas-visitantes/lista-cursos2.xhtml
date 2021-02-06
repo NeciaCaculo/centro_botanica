@@ -2,15 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-          <style type="text/css">
-              
-              #h_graphicImageid{
-                  padding: 10px;
-              }
-
-          </style>
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Lista Geral de Cursos</title>
         <!-- Favicon -->
@@ -84,11 +76,11 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="sobreNos.html">Sobre Nós</a></li>
+                                    <li><a href="Historico.html">Sobre Nós</a></li>
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="Ensino.html">Nossas Plantas</a></li>
-                                   <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
+                                    <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
                                     <li><a href="lista-eventos.jsf">Eventos</a></li>
                                     <li><a href="inserirContacto.jsf">Contactos</a></li>
                                     
@@ -105,55 +97,119 @@
         </div>
     </header>
 
-    <div class="top-popular-courses-area section-padding-100-70">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms">
-                        
-                        <h3>Eventos Realizados</h3>
-                        
-                        <div class="row">
-               
+    <div class="academy-courses-area section-padding-100-0">
+
+    <div class="container">
+        
+        <h2>Os melhores mestrados que adoramos que você experimente</h2>
                 <!-- Single Top Popular Course -->
-                
-                            <h:form style="width: 80%; margin: 20px">
-                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="1">
-                                 <h:column>
-                                     <f:facet name="header">Título</f:facet>
-                                     <h:outputText value="#{e.titulo}"/>
-                                   </h:column>
-                                    
-                                     <f:facet name="header">Imagem</f:facet>
+                <div class="col-12 col-lg-6">
+                    <div class="single-top-popular-course d-flex align-items-center flex-wrap mb-30 wow fadeInUp" data-wow-delay="400ms">
+                        
+                        <div class="popular-course-content">
+                            
+                            <h:form>
+                                <h:dataTable  value="#{cursoMB.listaCurso}" var="c" border="0">
+                                
+                                <h:column>
+                                    <br/>
+                                    <h5> <h:outputText value="#{c.nome_curso}"/> </h5>
+                                    <p> <h:outputText value="#{c.descricao}"/><br/>
+                                   Data de Início:
+                                     <h:outputText value="#{c.data_inicio}"/></p>
                                      
-                                    <h:graphicImage  
-                                             height="200px"  
-                                             width="200px"  
-                                             id="h_graphicImageid"   
-                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{imagem}" />
-                                       
-                                   
+                                     <br/>
+                                     
+                                     <a href="lista-cursos.jsf" class="btn academy-btn btn-sm">Saiba Mais</a>
+
+                                     <hr/>
+                                </h:column>
+                                 
+                                    
+                               
+                                    
+                                    
                                 </h:dataTable>
                             </h:form>
+                           
                             
                             
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-6">
+                    
+                    <!-- Latest Blog Posts Area -->
+                        <div class="latest-blog-posts mb-30">
+                            <h5>Últimas postagens</h5>
+                            <!-- Single Latest Blog Post -->
+                            <div class="single-latest-blog-post d-flex mb-30">
+                                
+                                <div class="latest-blog-post-content">
+                                    <a href="#" class="post-title">
+                                        <h6>Novos cursos para você</h6>
+                                    </a>
+                                    <a href="#" class="post-date">18 de março de 2021</a>
+                                </div>
+                            </div>
+                            <!-- Single Latest Blog Post -->
+                            <div class="single-latest-blog-post d-flex mb-30">
+                                
+                                <div class="latest-blog-post-content">
+                                    <a href="#" class="post-title">
+                                        <h6>Uma maneira de começar</h6>
+                                    </a>
+                                    <a href="#" class="post-date">18 de março de 2021</a>
+                                </div>
+                            </div>
+                            <!-- Single Latest Blog Post -->
+                            <div class="single-latest-blog-post d-flex mb-30">
+                                
+                                <div class="latest-blog-post-content">
+                                    <a href="#" class="post-title">
+                                        <h6>Novos cursos para você</h6>
+                                    </a>
+                                    <a href="#" class="post-date">18 de março de 2021</a>
+                                </div>
+                            </div>
+                            <!-- Single Latest Blog Post -->
+                            <div class="single-latest-blog-post d-flex">
+                                
+                                <div class="latest-blog-post-content">
+                                    <a href="#" class="post-title">
+                                        <h6>Comece seu treinamento</h6>
+                                    </a>
+                                    <a href="#" class="post-date">18 de março de 2021</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    
                     
                 </div>
-            </div>
-        </div>    
-    </div>
-        
-   </div>
-  </div>      
+
+       
+
+                
+   </div> 
+  </div>       
+    
+    
     
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         
         <div class="main-footer-area section-padding-100-0">
             <div class="container">
+                
                 <div class="row">
+                    
                     <!-- Footer Widget Area -->
                     <div class="col-12 col-sm-6 col-lg-3">
+                        
                         <div class="footer-widget mb-100">
                             <div class="widget-title">
                                 <a href="#"><img src="../img/core-img/CentroBotanica-02.png" alt=""/></a>

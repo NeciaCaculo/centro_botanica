@@ -1,0 +1,56 @@
+
+#top {
+    
+}
+
+#bottom {
+    
+}
+
+#left {
+    
+}
+
+#right {
+    
+}
+
+.center_content {
+    
+}
+
+.left_content {
+    
+}
+
+.right_content {
+    
+}
+
+#top a:link, #top a:visited {
+  
+}
+
+#top a:link:hover, #top a:visited:hover  {
+  
+}
+
+/* Partner Area CSS */
+.partners-logo {
+  position: relative;
+  z-index: 1; }
+  .partners-logo a {
+    display: inline-block;
+    max-width: 130px; }
+    @media only screen and (max-width: 767px) {
+      .partners-logo a {
+        max-width: 40px; } }
+    @media only screen and (min-width: 480px) and (max-width: 767px) {
+      .partners-logo a {
+        max-width: 60px; } }
+
+    .login-content a {
+      display: inline-block;
+      font-weight: 600; }
+      .header-area .top-header .login-content a:hover {
+        color: #69bc5f; }
