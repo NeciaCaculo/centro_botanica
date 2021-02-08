@@ -2,7 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+          <style type="text/css">
+              
+              #h_graphicImageid{
+                  padding: 10px;
+              }
+
+          </style>
     <h:head>
         <title>Lista Geral de Cursos</title>
         <!-- Favicon -->
@@ -76,7 +85,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="sobreNos.html">Sobre Nós</a>
+                                    <li><a href="sobreNos.html">Sobre Nós</a></li>
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="Ensino.html">Nossas Plantas</a></li>
@@ -110,15 +119,22 @@
                 <!-- Single Top Popular Course -->
                 
                             <h:form style="width: 80%; margin: 20px">
-                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="1">
+                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="0">
                                  <h:column>
-                                     <f:facet name="header">Título</f:facet>
-                                     <h:outputText value="#{e.titulo}"/>
+                                     <h5> <h:outputText value="#{e.titulo}"/></h5>
+                                     
+                                     <h:outputText value="#{e.descricao}"/>
                                    </h:column>
-                                    <h:column>
-                                     <f:facet name="header">Imagem</f:facet>
-                                     <h:graphicImage value="#{e.caminho_imagem}" width="200px" height="100px"/>
-                                   </h:column>
+                                    
+                                
+                                 <p:column headerText="Imagem">
+                            <p:graphicImage  cache="false" 
+                                             height="50px"  
+                                             width="50px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
+                        </p:column>>
+
+                                   
                                 </h:dataTable>
                             </h:form>
                             
