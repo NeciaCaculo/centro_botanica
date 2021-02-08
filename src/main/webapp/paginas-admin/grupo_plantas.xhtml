@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+
+    <body>
+
+        <ui:composition template="./master_page.xhtml">
+
+            <ui:define name="conteudo">
+                <h1>Grupo de Plantas</h1>
+                <p:messages showDetail="true" closable="true" style="width: 50%">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:form id="formNovo">
+                    <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+                    <p:separator  />
+                </h:form>
+                <h:form id="form">
+                    <!--            <p:growl id="msg" showDetail="true"/>-->
+                    <p:dataTable id="tabela" var="grupoPlanta" 
+                                 value="#{grupoPlantaMB.listaGrupoPlanta}" 
+                                 editable="true"
+                                 rendered="true"
+                                 style="width: 80%;margin-top: 1.5%">
+
+                        <p:ajax event="rowEdit" listener="#{grupoPlantaMB.onRowEdit}" ></p:ajax>
+                        <p:ajax event="rowEditCancel" listener="#{grupoPlantaMB.onRowCancel}" ></p:ajax>
+
+                        <p:column headerText="Cod" width="10%">
+
+                            <h:outputText value="#{grupoPlanta.pkgrupo_planta}"  />
+                        </p:column>
+                        <p:column headerText="Designacao">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{grupoPlanta.designacao}" /></f:facet>
+                                <f:facet name="input"> <h:inputText value="#{grupoPlanta.designacao}" label="Designacacao" /></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column width="10%">
+                            <p:rowEditor />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <!-- Modal Novo estado de conservação -->
+                    <p:dialog header="Novo Grupo de Plantas"
+                              widgetVar="dlgNovo" 
+                              showEffect="explode" 
+                              hideEffect="explode"
+                              height="auto" 
+                              width="400">
+
+                        <h:panelGrid columns="2"  >
+                            <p:outputLabel value="Designação" />
+                            <p:inputText  id="designacao" value="#{grupoPlantaMB.grupoPlanta.designacao}" required="true" />
+                            <p:outputLabel />
+                            <p:commandButton value="registrar"  action="#{grupoPlantaMB.insert()}" update="tabela"/>
+                        </h:panelGrid>
+
+                    </p:dialog>
+                </h:form>
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

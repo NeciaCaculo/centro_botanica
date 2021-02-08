@@ -5,11 +5,9 @@
  */
 package fc.dao;
 
-import fc.modelo.Curso;
+import fc.modelo.Planta;
 import fc.util.ConexaoDB;
-import fc.modelo.TipoCurso;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,131 +16,194 @@ import java.util.List;
 
 /**
  *
- * @author Necia
+ * @author Necia e Domingos Dala Vunge
  */
-public class PlantaDAO {
-    private String SELECT_ALL = "SELECT c.idcurso, c.nome_curso, c.descricao, c.data_inicio, c.data_fim, t.designacao, c.preco  FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso";
-    private String INSERT = "INSERT INTO curso (`nome_curso`,`descricao`,`data_inicio`,`data_fim`,`pk_tipo_curso`,`preco`) VALUES(?, ?, ?, ?, ?, ?)";
-    private String EDITE= "UPDATE curso SET nome_curso = ?, descricao = ?, data_inicio = ?, data_fim = ?, fk_tipo_curso = ?, preco = ? WHERE idcurso = ?";
-    private String DELETE = "DELETE FROM curso WHERE idcurso = ?;";
-    private String LIST_BY_NAME="SELECT c.idcurso, c.descricao, c.nome_curso, c.data_inicio, c.data_fim, t.designacao, c.preco FROM curso c INNER JOIN tipo_curso t ON t.pk_tipo_curso = c.fk_tipo_curso WHERE c.nome_curso LIKE ?";
-    private String INSERTE = "INSERT INTO `curso` (`nome_curso`,`descricao`,`data_inicio`,`data_fim`,`fk_tipo_curso`,`preco`) VALUES ( ?, ?, ?, ?, ?, ?);";
+public class PlantaDAO
+{
+
+    private String SELECT_ALL = "SELECT *  FROM planta;";
+    private String INSERTE = "INSERT INTO planta ( nome , descricao , nome_imagem, caminho_imagem, localizacao, utilidade, fk_grupo_planta, fk_estado_conservacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String EXISTE_PLANTA = "SELECT p.* FROM planta p WHERE p.nome = ?";
+    private String EDITE = "UPDATE planta SET nome = ? , descricao = ? , nome_imagem = ? , caminho_imagem = ? , localizacao = ?, utilidade = ? , fk_grupo_planta = ?, fk_estado_conservacao = ? WHERE pk_planta = ?";
+    private String DELETE = "DELETE FROM planta WHERE pk_planta = ?;";
+    private final String FIND_BY_ID = "SELECT * FROM planta WHERE pk_planta = ?";
+
     ConexaoDB conexao = new ConexaoDB();
-    
-    public void update(Curso pac){
-        
+
+    public void update( Planta planta )
+    {
+
         PreparedStatement ps;
-        try {
+        try
+        {
             Connection con = conexao.ligarBB();
-            ps = con.prepareStatement(EDITE);
-            
-            ps.setString(1, pac.getNome_curso());
-            ps.setString(2, pac.getDescricao());
-            ps.setDate(3, (Date) pac.getData_inicio());
-            ps.setDate(4, (Date) pac.getData_fim());
-            ps.setInt(5, pac.getTipo_Curso().getPktipo_curso());
-            ps.setDouble(6, pac.getPreco());
+            ps = con.prepareStatement( EDITE );
+
+            ps.setString( 1, planta.getNome() );
+            ps.setString( 2, planta.getDescricao() );
+            ps.setString( 3, planta.getNome_imagem() );
+            ps.setString( 4, planta.getCaminho_imagem() );
+            ps.setString( 5, planta.getLocalizacao() );
+            ps.setString( 6, planta.getUtilidade() );
+            ps.setInt( 7, planta.getGrupoPlanta().getPkgrupo_planta() );
+            ps.setInt( 8, planta.getEstadoConservacao().getPk_estado_conservacao() );
+            ps.setInt( 9, planta.getPk_planta() );
+
             ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Erro ao Actualizar o Registro: "+e.getLocalizedMessage());
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao Actualizar o Registro: " + e.getLocalizedMessage() );
         }
     }
-    
-    public void insert(Curso pac){
-        
+
+    public void insert( Planta planta )
+    {
+
         PreparedStatement ps;
-        try {
+        try
+        {
             Connection con = conexao.ligarBB();
-            ps = con.prepareStatement(INSERTE);
-            ps.setString(1, pac.getNome_curso());
-            ps.setString(2, pac.getDescricao());
-            ps.setDate(3, (Date) pac.getData_inicio());
-            ps.setDate(4, (Date) pac.getData_fim());
-            ps.setInt(5, pac.getTipo_Curso().getPktipo_curso());
-            ps.setDouble(6, pac.getPreco());
+            ps = con.prepareStatement( INSERTE );
+            ps.setString( 1, planta.getNome() );
+            ps.setString( 2, planta.getDescricao() );
+            ps.setString( 3, planta.getNome_imagem() );
+            ps.setString( 4, planta.getCaminho_imagem() );
+            ps.setString( 5, planta.getLocalizacao() );
+            ps.setString( 6, planta.getUtilidade() );
+            ps.setInt( 7, planta.getGrupoPlanta().getPkgrupo_planta() );
+            ps.setInt( 8, planta.getEstadoConservacao().getPk_estado_conservacao() );
             ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Erro ao Inserir os dados no Banco de Dados: "+e.getLocalizedMessage());
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao Inserir os dados no Banco de Dados: " + e.getLocalizedMessage() );
         }
     }
-    
-    public void delete(Curso pac){
-        
+
+    public void delete( Planta planta )
+    {
+
         PreparedStatement ps;
-        try {
+        try
+        {
             Connection con = conexao.ligarBB();
-            ps = con.prepareStatement(DELETE);
-            ps.setInt(1, pac.getPk_curso());
+            ps = con.prepareStatement( DELETE );
+            ps.setInt( 1, planta.getPk_planta() );
             ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Erro ao Eliminar o Registro: "+e.getLocalizedMessage());
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao Eliminar o Registro: " + e.getLocalizedMessage() );
         }
     }
-    
-   public List<Curso> findAll(){
-       List<Curso> lista = new ArrayList<>();
-       Connection con;
-       PreparedStatement ps;
-       ResultSet rs;
-       try {
-          con = conexao.ligarBB();
-          ps = con.prepareStatement(SELECT_ALL);
-          rs = ps.executeQuery();
-           while (rs.next()) {               
-               Curso pac = new Curso();
-               pac.setPk_curso(rs.getInt("c.idcurso"));
-               pac.setNome_curso(rs.getString("c.nome_curso"));
-               pac.setDescricao(rs.getString("c.descricao"));
-               pac.setData_inicio(rs.getDate("c.data_inicio"));
-               pac.setData_fim(rs.getDate("c.data_fim"));
-            
-               TipoCurso t = new TipoCurso();
-               t.setDesignacao(rs.getString("t.designacao"));
-               pac.setTipo_Curso(t);
-               
-               
-               lista.add(pac);
-           }
-          
-       } catch (SQLException e) {
-           System.err.println("Erro ao Listar: "+e.getLocalizedMessage());
-       }
-       return lista;
-   } 
-    
-   public List<Curso> findByName(String nome){
-       List<Curso> lista = new ArrayList<>();
-       Connection con;
-       PreparedStatement ps;
-       ResultSet rs;
-       try {
-          con = conexao.ligarBB();
-          ps = con.prepareStatement(LIST_BY_NAME);
-          ps.setString(1,"%" + nome + "%");
-          rs = ps.executeQuery();
-           while (rs.next()) {               
-               Curso pac = new Curso();
-               pac.setPk_curso(rs.getInt("c.idcurso"));
-               pac.setNome_curso(rs.getString("c.nome_curso"));
-                pac.setDescricao(rs.getString("c.descricao"));
-               pac.setData_inicio(rs.getDate("c.data_inicio"));
-               pac.setData_fim(rs.getDate("c.data_fim"));
-            
-               TipoCurso t = new TipoCurso();
-               t.setDesignacao(rs.getString("t.designacao"));
-               pac.setTipo_Curso(t);
-               
-               
-               lista.add(pac);
-  
-           }
-          
-       } catch (SQLException e) {
-           System.err.println("Erro ao Listar: "+e.getLocalizedMessage());
-       }
-       return lista;
-   } 
+
+    public List<Planta> findAll()
+    {
+        GrupoPlantaDAO grupoPlantaDAO = new GrupoPlantaDAO();
+        EstadoConservacaoDAO estadoConservacaoDAO = new EstadoConservacaoDAO();
+        List<Planta> lista = new ArrayList<>();
+        Connection con;
+        PreparedStatement ps;
+        ResultSet rs;
+        Integer idGrupoPlanta = 0, idEstadoConservacao = 0;
+        try
+        {
+            con = conexao.ligarBB();
+            ps = con.prepareStatement( SELECT_ALL );
+            rs = ps.executeQuery();
+            while ( rs.next() )
+            {
+                Planta planta = new Planta();
+                planta.setPk_planta( rs.getInt( "pk_planta" ) );
+                planta.setNome( rs.getString( "nome" ) );
+                planta.setDescricao( rs.getString( "descricao" ) );
+                planta.setNome_imagem( rs.getString( "nome_imagem" ) );
+                planta.setCaminho_imagem( rs.getString( "caminho_imagem" ) );
+                planta.setLocalizacao( rs.getString( "localizacao" ) );
+                planta.setUtilidade( rs.getString( "utilidade" ) );
+
+                idGrupoPlanta = rs.getInt( "fk_grupo_planta" );
+                idEstadoConservacao = rs.getInt( "fk_estado_conservacao" );
+
+                planta.setGrupoPlanta( grupoPlantaDAO.findById( idGrupoPlanta ) );
+                planta.setEstadoConservacao( estadoConservacaoDAO.findById( idEstadoConservacao ) );
+
+                lista.add( planta );
+            }
+
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao Listar: " + e.getLocalizedMessage() );
+        }
+        return lista;
+    }
+
+    public Planta findById( Integer id )
+    {
+        GrupoPlantaDAO grupoPlantaDAO = new GrupoPlantaDAO();
+        EstadoConservacaoDAO estadoConservacaoDAO = new EstadoConservacaoDAO();
+        Connection con;
+        PreparedStatement ps;
+        ResultSet rs;
+        Integer idGrupoPlanta = 0, idEstadoConservacao = 0;
+        try
+        {
+            con = conexao.ligarBB();
+            ps = con.prepareStatement( FIND_BY_ID );
+            ps.setInt( 1, id );
+            rs = ps.executeQuery();
+            if ( rs.next() )
+            {
+                Planta planta = new Planta();
+
+                planta.setPk_planta( rs.getInt( "pk_planta" ) );
+                planta.setNome( rs.getString( "nome" ) );
+                planta.setDescricao( rs.getString( "descricao" ) );
+                planta.setNome_imagem( rs.getString( "nome_imagem" ) );
+                planta.setCaminho_imagem( rs.getString( "caminho_imagem" ) );
+                planta.setLocalizacao( rs.getString( "localizacao" ) );
+                planta.setUtilidade( rs.getString( "utilidade" ) );
+
+                idGrupoPlanta = rs.getInt( "fk_grupo_planta" );
+                idEstadoConservacao = rs.getInt( "fk_estado_conservacao" );
+
+                planta.setGrupoPlanta( grupoPlantaDAO.findById( idGrupoPlanta ) );
+                planta.setEstadoConservacao( estadoConservacaoDAO.findById( idEstadoConservacao ) );
+
+                return planta;
+
+            }
+
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao buscar o objecto: " + e.getLocalizedMessage() );
+        }
+        return null;
+    }
 
    
-   
+
+    public boolean existeNome( String nome_planta )
+    {
+        PreparedStatement ps;
+        try
+        {
+            Connection con = conexao.ligarBB();
+            ps = con.prepareStatement( EXISTE_PLANTA );
+            ps.setString( 1, nome_planta );
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao verificar a exitência do tipo de planta" );
+        }
+        return false;
+    }
+
 }

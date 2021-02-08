@@ -5,41 +5,45 @@
  */
 package fc.modelo;
 
-
 /**
  *
  * @author Nécia Caculo
  */
-public class GrupoPlanta {
+public class GrupoPlanta
+{
 
     private int pk_grupo_planta;
     private String designacao;
-    
-    public GrupoPlanta() {
+
+    public GrupoPlanta()
+    {
     }
 
-    public GrupoPlanta(int pk_grupo_planta, String designacao) {
+    public GrupoPlanta( int pk_grupo_planta, String designacao )
+    {
         this.pk_grupo_planta = pk_grupo_planta;
         this.designacao = designacao;
-        
+
     }
 
-    public int getPkgrupo_planta() {
+    public int getPkgrupo_planta()
+    {
         return pk_grupo_planta;
     }
 
-    public void setPkgrupo_planta(int pk_grupo_planta) {
+    public void setPkgrupo_planta( int pk_grupo_planta )
+    {
         this.pk_grupo_planta = pk_grupo_planta;
     }
 
-    public String getDesignacao() {
+    public String getDesignacao()
+    {
         return designacao;
     }
 
-    public void setDesignacao(String designacao) {
+    public void setDesignacao( String designacao )
+    {
         this.designacao = designacao;
     }
 
-    
-    
 }

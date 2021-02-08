@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+        <ui:composition template="./master_page.xhtml">
+
+            <ui:define name="conteudo">
+                <h1>Planta</h1>
+                <p:messages showDetail="true" closable="true" style="width: 50%">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:form id="formNovo">
+                    <p:commandButton value="Novo" onclick="PF('dlgNovo').show();"/>     
+                    <p:commandButton value="Refresh"  update=":form:tabela" action="#{plantaMB.refreshPagina}"  />     
+                    <p:separator  />
+                </h:form>
+                <h:form id="form">
+
+                    <!--            <p:growl id="msg" showDetail="true"/>-->
+                    <p:dataTable id="tabela" var="planta" 
+                                 value="#{plantaMB.listaPlanta}" 
+                                 editable="true"
+                                 rendered="true"
+                                 style="width: 100%;margin-top: 1.5%">
+
+                        <p:column headerText="Cod" width="10%">
+
+                            <h:outputText value="#{planta.pk_planta}"  />
+                        </p:column>
+
+
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{planta.nome}"  />
+                        </p:column>
+
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{planta.descricao}" />
+                        </p:column>
+
+                        <p:column headerText="Localização">
+                            <h:outputText value="#{planta.localizacao}" />
+                        </p:column>
+
+                        <p:column headerText="Grupo">
+                            <h:outputText value="#{planta.grupoPlanta.designacao}" />
+                        </p:column>
+
+                        <p:column headerText="Estado de Conservação">
+                            <h:outputText value="#{planta.estadoConservacao.designacao}" />
+                        </p:column>
+
+                        <p:column headerText="Imagem">
+                            <p:graphicImage  cache="false" 
+                                             height="50px"  
+                                             width="50px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/plantas/#{planta.nome_imagem}" />
+                        </p:column>
+
+                        <p:column headerText="Acção"  >
+                            <center>
+                                <p:commandLink value="editar"   actionListener="#{plantaMB.actualizar( planta) }"   update=":formDialogEditar"   oncomplete="PF('dlgEditar').show();"    style=" margin-right: 5px;"/>
+                                <p:commandButton value="eliminar" actionListener="#{plantaMB.eliminar(planta)}" update=":form:tabela" >
+                                    <!--<p:confirm header="Confirmação"   message="Caro usuário tens a certeza que pretende eliminar?" icon="pi pi-info-circle"/>-->
+                                </p:commandButton>
+                            </center>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"  actionListener="#{cursoMB.eliminar(null)}" update=":form:tabela" />
+                    </p:confirmDialog>
+
+                </h:form>
+
+
+                <h:form id="formDialogNovo" enctype="multipart/form-data">
+                    <!-- Modal Nova Planta -->
+                    <p:dialog header="Nova Planta"
+                              widgetVar="dlgNovo" 
+                              height="auto" 
+                              width="700">
+
+                        <h:panelGrid columns="4"    >
+
+
+                            <p:outputLabel value="Nome" for="nome" />
+                            <p:inputText  id="nome"
+                                          value="#{plantaMB.planta.nome}"
+                                          required="true" style="width: auto;" />
+
+
+                            <p:outputLabel value="Grupo" style="align-content: center;"/>
+                            <p:selectOneMenu value="#{plantaMB.idGrupoPlanta}"
+                                             style="width: 100px; ">
+                                <f:selectItems value="#{grupoPlantaMB.selectGrupoPlantas}" 
+                                               var="tc" 
+                                               itemLabel="#{tc.description}" 
+                                               itemValue="#{tc.value}" />
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Descrição"
+                                           for="descricao"  />
+                            <p:inputTextarea id="descricao"
+                                             rows="7" 
+                                             cols="25"  
+                                             maxlength="200"
+                                             style="height: auto;"
+                                             value="#{plantaMB.planta.descricao}"   />
+
+
+                            <p:outputLabel value="Estado de conservação" 
+                                           style="width: 300px;" />
+                            <p:selectOneMenu value="#{plantaMB.idEstadoConservacao}" 
+                                             style="width: 100px;">
+                                <f:selectItems value="#{estadoConservacaoMB.selectEstadoConservacao}" 
+                                               var="tc" 
+                                               itemLabel="#{tc.description}" 
+                                               itemValue="#{tc.value}" 
+                                               />
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="localizacao" for="localicacao"  />
+                            <p:inputTextarea id="localicacao"
+                                             rows="7" 
+                                             cols="25"  
+                                             maxlength="200"
+                                             style="height: auto;"
+                                             value="#{plantaMB.planta.localizacao}"   />
+
+                            <p:outputLabel  value="Imagem" />
+                            <p:fileUpload label="Seleccione" 
+                                          value="#{plantaMB.filePlanta}" 
+                                          mode="simple" skinSimple="true"/>
+
+                            <p:outputLabel value="Utilidade" for="utilidade"  />
+                            <p:inputTextarea id="utilidade"
+                                             rows="7" 
+                                             cols="25"  
+                                             maxlength="200"
+                                             style="height: auto;"
+                                             value="#{plantaMB.planta.utilidade}"   />
+                            <p:outputLabel/>
+                            <p:outputLabel/>
+
+                        </h:panelGrid>
+
+                        <p:separator />
+                        <p:commandButton value="registrar" 
+                                         ajax="false" 
+                                         action="#{plantaMB.insert()}" 
+                                         update=":form:tabela" 
+                                         oncomplete="PF('dlgNovo').hide();" />
+
+
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDialogEditar">
+                    <!-- Modal Novo Curso -->
+                    <p:dialog header="Editar Curso"
+                              widgetVar="dlgEditar" 
+                              height="auto" 
+                              width="750">
+
+                        <h:panelGrid columns="2" style="padding: 20px;"  >
+
+
+
+                            <p:outputLabel />
+                            <p:commandButton value="Editar"  
+                                             action="#{cursoMB.editar()}" 
+                                             update=":form:tabela" 
+                                             oncomplete="PF('dlgEditar').hide();" />
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
