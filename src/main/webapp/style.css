@@ -674,18 +674,20 @@ img {
   background-color: #eef3f6; }
   .single-top-popular-course .popular-course-content {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 54%;
-    flex: 0 0 54%;
-    max-width: 54%;
-    width: 54%;
-    padding: 30px; }
-    @media only screen and (max-width: 767px) {
+    -ms-flex: 0 0 80%;
+    flex: 0 0 80%;
+    max-width: 80%;
+    width: 80%;
+    padding: 30px;
+ }
+    @media only screen and (max-width: 967px) {
       .single-top-popular-course .popular-course-content {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
-        width: 100%; } }
+        width: 100%; 
+      } }
     .single-top-popular-course .popular-course-content h5 {
       font-size: 18px;
       font-weight: 500;
@@ -1064,20 +1066,22 @@ img {
 
 .latest-blog-posts {
   background-color: #eef3f6;
-  padding: 30px; }
+  padding: 30px; 
+  clear: both;
+  float: right;}
   .latest-blog-posts h5 {
     font-size: 18px;
-    margin-bottom: 30px; }
+   }
   .latest-blog-posts .latest-blog-post-thumb {
 /*    @flex (0 0 66px);
     max-width: 66px;*/
     width: 66px;
-    margin-right: 15px; }
+     }
   .latest-blog-posts .latest-blog-post-content .post-title h6 {
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
     font-weight: 500;
-    margin-bottom: 3px; }
+     }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .latest-blog-posts .latest-blog-post-content .post-title h6 {
         font-size: 14px; } }

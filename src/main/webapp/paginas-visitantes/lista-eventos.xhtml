@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
           <style type="text/css">
               
               #h_graphicImageid{
@@ -118,20 +119,21 @@
                 <!-- Single Top Popular Course -->
                 
                             <h:form style="width: 80%; margin: 20px">
-                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="1">
+                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="0">
                                  <h:column>
-                                     <f:facet name="header">Título</f:facet>
-                                     <h:outputText value="#{e.titulo}"/>
+                                     <h5> <h:outputText value="#{e.titulo}"/></h5>
+                                     
+                                     <h:outputText value="#{e.descricao}"/>
                                    </h:column>
                                     
-                                     <f:facet name="header">Imagem</f:facet>
-                                     
-                                    <h:graphicImage  
-                                             height="200px"  
-                                             width="200px"  
-                                             id="h_graphicImageid"   
-                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{imagem}" />
-                                       
+                                
+                                 <p:column headerText="Imagem">
+                            <p:graphicImage  cache="false" 
+                                             height="50px"  
+                                             width="50px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
+                        </p:column>>
+
                                    
                                 </h:dataTable>
                             </h:form>
