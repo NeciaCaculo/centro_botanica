@@ -2,9 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+          <style type="text/css">
+              
+              #h_graphicImageid{
+                  padding: 10px;
+              }
+
+          </style>
     <h:head>
-        <title>Contactos</title>
+        <title>Lista Geral de Plantas</title>
         <!-- Favicon -->
      <meta charset="UTF-8"/>
     <meta name="description" content=""/>
@@ -34,6 +43,7 @@
                                 <a href="../index.html"><img src="../img/core-img/tea2.png" alt=""/></a>
                                 
                             </div>
+                            
                             <div class="login-content">                               
                                 
                                &nbsp; <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
@@ -75,13 +85,11 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="Historico.html">Sobre Nós</a>
-                            
-                                    </li>
+                                    <li><a href="sobreNos.html">Sobre Nós</a></li>
                                     
                                     <li><a href="Historico.html">Obras Literárias</a></li>
                                     <li><a href="lista-plantas.jsf">Nossas Plantas</a></li>
-                                    <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
+                                   <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
                                     <li><a href="lista-eventos.jsf">Eventos</a></li>
                                     <li><a href="inserirContacto.jsf">Contactos</a></li>
                                     
@@ -98,41 +106,58 @@
         </div>
     </header>
 
-    <div class="academy-courses-area section-padding-100-0">
-
-    <div class="container">
-        
-        <div class="contact-content">
-          <div class="row">
-              
-       <h:form style="width: 80%; margin-left: 180px;">
-           <div class="contact-form-area wow fadeInUp" data-wow-delay="500ms">
-           <h2>Fale Connosco</h2>
-            <h:panelGrid columns="1">  
-                
-                <h:outputLabel value="Nome"/>
-                <h:inputText class="form-control"  value="#{contactoMB.contacto.nome}" size="40"/>
+    <div class="top-popular-courses-area section-padding-100-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="300ms">
+                        
+                        <h3>Conheça as Nossas Plantas</h3>
+                        
+                        <div class="row">
                
-                <h:outputLabel value="Telefone"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.telefone}" size="40"/>
-                <h:outputLabel value="Email"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.email}" size="40"/>
-                <h:outputLabel value="Endereço"/>
-                <h:inputText class="form-control" value="#{contactoMB.contacto.endereco}" size="40"/>
-                <h:outputLabel value="Mensagem"/>
-                <h:inputTextarea class="form-control"  value="#{contactoMB.contacto.mensagem}"/>
+                <!-- Single Top Popular Course -->
                 
-            </h:panelGrid>
-           <h:commandButton value="Enviar" class="btn btn-primary" action="#{contactoMB.insert}"/>
-           </div>
-       </h:form>
+                            <h:form style="width: 80%; margin: 20px">
+                                <h:dataTable class="table table-striped" value="#{plantaMB.listaPlanta}" var="p" border="0">
+                                 
+                                 <h:column>
+                                     
+                            <h:graphicImage  
+                                             height="350px"  
+                                             width="400px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{e.nome_imagem}"
+                                             
+                                             />
+                            
+                        </h:column>> 
+                        
+                        <h:column>
+                                     <h5> <h:outputText value="#{p.nome}"/></h5>
+                                     
+                                     <h:outputText value="#{p.descricao}"/><br/>
+                                     <h:outputText value="#{p.utilidade}"/><br/>
+                                     
+                                    <h:outputText value="#{p.grupoPlanta.designacao}"/><br/>
+                                    
+                                    <h:outputText value="#{p.localizacao}"/><br/> <br/>
+                           <a href="lista-cursos.jsf" class="btn academy-btn btn-sm">Ver Mais</a>
+
+                                   </h:column> <br/>
+                                   
+                                   
+                                </h:dataTable>
+                            </h:form>
+                            
+                            
+                    
+                </div>
+            </div>
+        </div>    
+    </div>
         
-          </div>
-          </div>  
-   </div> 
-  </div>       
-    
-    
+   </div>
+  </div>      
     
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
