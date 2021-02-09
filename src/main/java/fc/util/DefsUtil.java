@@ -22,7 +22,7 @@ public class DefsUtil
 //     public static String CAMINHO_EVENTOS = "/glassfish/domains/domain1/docroot/uploader/eventos";
 //    public static String CAMINHO_PLANTAS = "/glassfish/domains/domain1/docroot/uploader/plantas";
     
-    public static String payaraFolder = "C:/payara-5.2020.4/payara5/glassfish/domains/domain1/docroot/uploader";
+    public static String payaraFolder = "C:/payara5/glassfish/domains/domain1/docroot/uploader";
     public static String CAMINHO_EVENTOS = "/eventos";
     public static String CAMINHO_PLANTAS = "/plantas";
 
