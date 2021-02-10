@@ -19,8 +19,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-//import javax.enterprise.context.SessionScoped;
 import org.primefaces.model.UploadedFile;
+//import javax.enterprise.context.SessionScoped;
 
 @Named( value = "eventoMB" )
 @ApplicationScoped
