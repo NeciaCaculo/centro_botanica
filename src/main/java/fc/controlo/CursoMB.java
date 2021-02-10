@@ -36,6 +36,8 @@ public class CursoMB implements Serializable
     transient TipoCursoDAO tipoCursoDAO;
 
     List<Curso> listaCurso = new ArrayList<>();
+    List<Curso> cursosComLetras;
+    String letrasNomeCurso;
 
     String idTipoCurso;
 
@@ -91,6 +93,25 @@ public class CursoMB implements Serializable
     {
         this.listaCurso = listaCurso;
     }
+
+    public List<Curso> getCursosComLetras() {
+        return cursosComLetras;
+    }
+
+    public void setCursosComLetras(List<Curso> cursosComLetras) {
+        this.cursosComLetras = cursosComLetras;
+    }
+
+    public String getLetrasNomeCurso() {
+        return letrasNomeCurso;
+    }
+
+    public void setLetrasNomeCurso(String letrasNomeCurso) {
+        this.letrasNomeCurso = letrasNomeCurso;
+    }
+    
+    
+    
 
     public void insert()
     {

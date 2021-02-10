@@ -76,9 +76,11 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="sobreNos.jsf">Sobre Nós</a></li>
+                                    <li><a href="sobreNos.jsf">Sobre Nós</a>
+                            
+                                    </li>
                                     
-                                    <li><a href="Historico.html">Obras Literárias</a></li>
+                                    <li><a href="lista-obra-literaria.jsf">Obras Literárias</a></li>
                                     <li><a href="lista-plantas.jsf">Nossas Plantas</a></li>
                                     <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
                                     <li><a href="lista-eventos.jsf">Eventos</a></li>
@@ -103,6 +105,7 @@
         
         <h2>Os melhores mestrados que adoramos que você experimente</h2>
                 <!-- Single Top Popular Course -->
+               <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="single-top-popular-course d-flex align-items-center flex-wrap mb-30 wow fadeInUp" data-wow-delay="400ms">
                         
@@ -142,9 +145,49 @@
                     </div>
                 </div>
                 
+              &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h:form id="frmBusca">
+            <h:panelGrid columns="1">
+            <h:outputLabel value="Escreva parte do nome do Curso"/>
+            <h:inputText value="#{cursoMB.letrasNomeCurso}"/>
+            <h:commandButton value="Pesquisar ..."/><br/>
+            </h:panelGrid>
+          <br/>
+          <h:form id="dtBuscaCursos">
+            <h:dataTable class="table table-striped table-hover" value="#{cursoMB.cursosComLetras}" var="m" border="0">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="N/O"/>
+                    </f:facet>
+                    <h:outputText value="#{m.pk_curso}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Curso"/>
+                    </f:facet>
+                    <h:outputText value="#{m.nome_curso}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Descrição"/>
+                    </f:facet>
+                    <h:outputText value="#{m.descricao}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Data de Início"/>
+                    </f:facet>
+                    <h:outputText value="#{m.data_inicio}"/>
+                </h:column>
                 
+            </h:dataTable>
+        </h:form>
+                </h:form>
+                   
+                   
+        
 
-                
+            </div>    
    </div> 
   </div>       
     
