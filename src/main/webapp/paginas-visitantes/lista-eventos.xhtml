@@ -13,7 +13,7 @@
 
           </style>
     <h:head>
-        <title>Lista Geral de Cursos</title>
+        <title>Eventos</title>
         <!-- Favicon -->
      <meta charset="UTF-8"/>
     <meta name="description" content=""/>
@@ -85,11 +85,13 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="../index.jsf">Home</a></li>
-                                    <li><a href="sobreNos.html">Sobre Nós</a></li>
+                                    <li><a href="sobreNos.jsf">Sobre Nós</a>
+                            
+                                    </li>
                                     
-                                    <li><a href="Historico.html">Obras Literárias</a></li>
-                                    <li><a href="Ensino.html">Nossas Plantas</a></li>
-                                   <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
+                                    <li><a href="lista-obra-literaria.jsf">Obras Literárias</a></li>
+                                    <li><a href="lista-plantas.jsf">Nossas Plantas</a></li>
+                                    <li><a href="lista-cursos.jsf">Nossos Cursos</a></li>
                                     <li><a href="lista-eventos.jsf">Eventos</a></li>
                                     <li><a href="inserirContacto.jsf">Contactos</a></li>
                                     
@@ -119,20 +121,24 @@
                 <!-- Single Top Popular Course -->
                 
                             <h:form style="width: 80%; margin: 20px">
-                                <h:dataTable  value="#{eventoMB.listaEventos}" var="e" border="0">
+                                <h:dataTable class="table table-striped" value="#{eventoMB.listaEventos}" var="e" border="0">
+                                 
                                  <h:column>
+                                     
+                            <h:graphicImage  
+                                             height="350px"  
+                                             width="400px"  
+                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{e.nome_imagem}"
+                                             
+                                             />
+                            
+                        </h:column>> 
+                        
+                        <h:column>
                                      <h5> <h:outputText value="#{e.titulo}"/></h5>
                                      
                                      <h:outputText value="#{e.descricao}"/>
-                                   </h:column>
-                                    
-                                
-                                 <p:column headerText="Imagem">
-                            <p:graphicImage  cache="false" 
-                                             height="50px"  
-                                             width="50px"  
-                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
-                        </p:column>>
+                                   </h:column> <br/>
 
                                    
                                 </h:dataTable>

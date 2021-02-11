@@ -16,12 +16,12 @@
         </h:form>
         
         <h:form id="dtBuscaCursos">
-            <h:dataTable value="#{cursoMB.cursosComLetras}" var="m" border="1">
+            <h:dataTable value="#{cursoMB.cursoComLetras}" var="m" border="1">
                 <h:column>
                     <f:facet name="header">
                         <h:outputLabel value="N/O"/>
                     </f:facet>
-                    <h:outputText value="#{m.idcurso}"/>
+                    <h:outputText value="#{m.pk_curso}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
