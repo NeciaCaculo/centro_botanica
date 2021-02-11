@@ -22,12 +22,14 @@ public class UsuarioDAO
 {
 
     private final String FIND_BY_ID = "SELECT * FROM usuario WHERE pkusuario = ?";
+    private final String LOGIN = "SELECT * FROM usuario WHERE username = ? and senha = ?";
     private String SELECT_ALL = "SELECT p.pkusuario, p.nomeCompleto, p.username, p.senha FROM usuario p";
     private String INSERT = "INSERT INTO usuario (`nomeCompleto`,`username`,`senha`) VALUES(?,?,?)";
     private String EDITE = "UPDATE usuario SET nomeCompleto = ?, username = ?, senha = ? WHERE pkusuario = ?";
     private String DELETE = "DELETE FROM usuario WHERE pkusuario = ?;";
     private String LIST_BY_NAME = "SELECT p.pkusuario, p.nomeCompleto, p.username, p.senha FROM usuario WHERE p.nomeCompleto LIKE ?";
     private String INSERTE = "INSERT INTO `usuario` (`nomeCompleto`,`username`,`senha`) VALUES (?, ?, ?);";
+
     ConexaoDB conexao = new ConexaoDB();
 
     public void update( Usuario pac )
@@ -174,6 +176,31 @@ public class UsuarioDAO
             System.err.println( "Erro ao buscar o objecto: " + e.getLocalizedMessage() );
         }
         return null;
+    }
+
+    public boolean isValido( String userName, String senha )
+    {
+        Connection con;
+        PreparedStatement ps;
+        ResultSet rs;
+        try
+        {
+            con = conexao.ligarBB();
+            ps = con.prepareStatement( LOGIN );
+            ps.setString( 1, userName );
+            ps.setString( 2, senha );
+            rs = ps.executeQuery();
+            if ( rs.next() )
+            {
+                return true;
+            }
+
+        }
+        catch ( SQLException e )
+        {
+            System.err.println( "Erro ao verificar credências: " + e.getLocalizedMessage() );
+        }
+        return false;
     }
 
 }

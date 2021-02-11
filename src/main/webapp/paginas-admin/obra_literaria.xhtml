@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+        <ui:composition template="./master_page.xhtml">
+
+            <ui:define name="titulo">Gestão de Obras Literária</ui:define>
+            <ui:define name="conteudo">
+
+                <h1>Gestão de Obra Literárias</h1>
+                <h:form id="form" enctype="multpart/form-data">
+                    <p:tabView>
+
+                        <p:tab title="Dados da obra literária">
+
+                            <h:panelGrid columns="2">
+
+                                <p:outputLabel value="Título"/>
+                                <p:outputLabel value="Anexo"/>
+                                <p:inputText  size="30" />
+                                <h:inputFile />
+
+                                <p:outputLabel value="Data do lançamento"/>
+                                <p:outputLabel value="Descrição"/>
+                                <p:datePicker />
+                                <p:inputTextarea cols="30" rows="6"/>
+
+                            </h:panelGrid>
+
+                        </p:tab>
+                        <p:tab title="+ Grupos de plantas">
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Grupo" style="align-content: center;"/>
+                                <p:selectOneMenu value="#{plantaMB.idGrupoPlanta}"
+                                                 style="width: 100px; ">
+                                    <f:selectItems value="#{grupoPlantaMB.selectGrupoPlantas}" 
+                                                   var="tc" 
+                                                   itemLabel="#{tc.description}" 
+                                                   itemValue="#{tc.value}" />
+
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <br/>
+                            <p:pickList id="pickListPlantas" 
+                                        value="#{pickListPlantaView.plantas}" 
+                                        var="cities" 
+                                        itemLabel="#{cities}" 
+                                        itemValue="#{cities}"/>
+
+                        </p:tab>
+                        <p:tab title="+ Actores">
+                            <p:pickList id="pickListAutores" 
+                                        value="#{pickListAutorView.autor}" 
+                                        var="autor" 
+                                        itemLabel="#{autor}" 
+                                        itemValue="#{autor}"/>
+
+                        </p:tab>
+
+                    </p:tabView>
+
+                    <br/>
+                    <br/>
+                    <p:commandButton value="enviar" />
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

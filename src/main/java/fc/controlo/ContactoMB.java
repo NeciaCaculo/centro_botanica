@@ -11,12 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.model.SelectItem;
 
 @Named(value = "contactoMB")
-@SessionScoped
+@ApplicationScoped
 public class ContactoMB implements Serializable {
 
     Contacto contacto = new Contacto();
@@ -25,7 +24,7 @@ public class ContactoMB implements Serializable {
 
     @PostConstruct
     public void inicializar() {
-      //  listaContactos = contactoDao.findAll();
+        listaContactos = contactoDao.findAll();
     }
 
     public Contacto getContacto() {

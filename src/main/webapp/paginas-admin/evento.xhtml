@@ -8,12 +8,10 @@
 
     <body>
         <ui:composition template="./master_page.xhtml">
-            <ui:define name="titulo">
-                Eventos
-            </ui:define>
+            <ui:define name="titulo">Gestão de Eventos</ui:define>
 
             <ui:define name="conteudo">
-                <h1>Evento</h1>
+                <h1>Gestão de Eventos</h1>
                 <p:messages showDetail="true" closable="true" style="width: 50%">
                     <p:autoUpdate/>
                 </p:messages>
@@ -52,10 +50,13 @@
                         </p:column>
 
                         <p:column headerText="Imagem">
-                            <p:graphicImage  cache="false" 
-                                             height="50px"  
-                                             width="50px"  
-                                             value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
+                            <center>
+                                <p:graphicImage  cache="false" 
+                                                 height="50px"  
+                                                 width="50px" 
+                                                 styleClass="imagem"
+                                                 value=  "http://#{uploadBasicoBean.enderecoIp() }:8080/uploader/eventos/#{evento.nome_imagem}" />
+                            </center>
                         </p:column>>
 
                         <p:column headerText="Acção"  >

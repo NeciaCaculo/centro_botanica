@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 //import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -24,7 +25,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 @Named( value = "cursoMB" )
-@SessionScoped
+@ApplicationScoped
 public class CursoMB implements Serializable
 {
 

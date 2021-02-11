@@ -9,9 +9,9 @@
 
     <body>
         <ui:composition template="./master_page.xhtml">
-
+            <ui:define name="titulo">Gestão de Cursos</ui:define>
             <ui:define name="conteudo">
-                <h1>Curso</h1>
+                <h1>Gestão de Cursos</h1>
                 <p:messages showDetail="true" closable="true" style="width: 50%">
                     <p:autoUpdate/>
                 </p:messages>
@@ -75,7 +75,7 @@
                             <center>
                                 <p:commandLink value="editar"   actionListener="#{cursoMB.actualizar( curso) }"   update=":formDialogEditar"   oncomplete="PF('dlgEditar').show();"    style=" margin-right: 5px;"/>
                                 <p:commandButton value="eliminar" actionListener="#{cursoMB.eliminar(curso)}" update=":form:tabela" >
-                                     <!--<p:confirm header="Confirmação"   message="Caro usuário tens a certeza que pretende eliminar?" icon="pi pi-info-circle"/>-->
+                                    <!--<p:confirm header="Confirmação"   message="Caro usuário tens a certeza que pretende eliminar?" icon="pi pi-info-circle"/>-->
                                 </p:commandButton>
                             </center>
                         </p:column>
